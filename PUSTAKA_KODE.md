@@ -1,6 +1,6 @@
-# Daftar Pustaka Program
+# Daftar Pustaka Kode
 
-Berikut daftar pustaka program yang digunakan dalam penelitian ini:
+Berikut daftar pustaka program/kode yang digunakan dalam penelitian ini:
 
 ## Bahasa pemrograman
 
@@ -35,6 +35,6 @@ Sitasi berdasarkan: https://www.scipy.org/citing.html
 
 ## Paket Python
 - Hidrokit | MIT License
-  - Taruma Sakti Megariansyah. (2019, July 26). hidrokit: Analisis Hidrologi dengan Python. Zenodo. http://doi.org/10.5281/zenodo.3276220
+  - Taruma Sakti Megariansyah. hidrokit: Analisis Hidrologi dengan Python. Zenodo. http://doi.org/10.5281/zenodo.3276220
 - HydroErr | MIT License
   - Roberts, W., Williams, G., Jackson, E., Nelson, E., Ames, D., 2018. Hydrostats: A Python Package for Characterizing Errors between Observed and Predicted Time Series. Hydrology 5(4) 66, doi:10.3390/hydrology5040066
