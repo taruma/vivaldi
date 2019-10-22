@@ -8,8 +8,14 @@ Proyek vivaldi merupakan proyek dokumentasi pengerjaan tesis/penelitian dengan t
 
 ---
 
-Jika Anda mengunjungi halaman ini karena _jupyter notebook_ saya, berikut pranala penting terkait 
+Jika Anda mengunjungi halaman ini karena _jupyter notebook_ atau laporan, berikut pranala penting terkait produk (penelitian) yang telah tersedia:
 
+Daftar Pustaka yang telah dikumpulkan: [Pustaka Lokal](./pustaka/PUSTAKA_LOKAL.md), [Pustaka Makalah (Internasional)](./pustaka/PUSTAKA_MAKALAH.md), [Pustaka Program](./pustaka/PUSTAKA_PROGRAM.md).
+
+Diagram terkait penelitian: [Diagram Metode Penelitian](./diagram/diagram_metode_penelitian.md).
+
+
+Jika Anda tertarik mengenai proyek vivaldi, silahkan dilanjut bacanya sampai paling bawah. 😁
 
 ---
 
@@ -23,7 +29,7 @@ Fokus dari cara pengerjaan vivaldi adalah membagi pekerjaan menjadi bagian kecil
 
 Sederhananya, dalam mengerjakan penelitian bagilah menjadi empat pekerjaan yaitu Riset _Research_, Belajar _Learning_, Pengembangan _Development_, Laporan _Report_. Dengan membagi setiap _actionable task_ ke masing-masing jenis pekerjaan, akan memudahkan untuk melacak dan mencatat perkembangan penelitian. 
 
-Untuk lebih jelasnya mengenai empat pekerjaan (the four seasons) bisa baca [di halaman ini](./vivaldi/CATATAN_empat_pekerjaan.md).
+Untuk lebih jelasnya mengenai empat pekerjaan bisa baca [di halaman ini](./vivaldi/CATATAN_empat_pekerjaan.md).
 
 ---
 
@@ -31,13 +37,7 @@ Untuk lebih jelasnya mengenai empat pekerjaan (the four seasons) bisa baca [di h
 
 Pada proyek ini ada dua bagian utama yaitu bagian penelitian/tesis-nya (_product_) dan cara pengerjaannya (_workflow_). Proyek vivaldi lebih fokus ke cara pengerjaannya, akan tetapi hasil penelitian/tesisnya bisa disertakan juga di dalam repository ini (jika memungkinkan).
 
-### Daftar-daftar Pustaka
-
-Pada bagian pekerjaan 
-
-
 ---
-
 
 ## Tanya Jawab (Tanja)
 
@@ -58,5 +58,11 @@ Kenapa memilih nama "vivaldi"?
 Kenapa tidak memisahkan antara proyek dokumentasi pengerjaannya dan tesisnya sendiri?
 
 > Karena membagi fokus menjadi dua itu lebih rumit dan kesannya seperti _multi-tasking_. Penggabungan ini memudahkan saya untuk fokus ke pengerjaan tesis saya. 
+
+Apakah ini menjamin penelitian/tesis/tugas akhir saya cepat selesai atau selesai?
+
+> Proyek ini tidak menjamin hal tersebut. Proyek ini hanya menyediakan alternatif bagaimana melakukan mengerjakan suatu pekerjaan, untuk proyek ini adalah tesis/penelitian.
+>  
+> Gunakan proyek ini untuk merefleksikan diri mengenai produktivitas Anda. Gunakan proyek ini untuk inspirasi bagaimana Anda mengatasi tugas akademik Anda. Jika punya kesulitan, mari diskusikan. 
 
 ---
