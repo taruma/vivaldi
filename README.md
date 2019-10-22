@@ -25,25 +25,29 @@ Daftar Pustaka yang telah dikumpulkan: [Pustaka Lokal](./pustaka/PUSTAKA_LOKAL.m
 Diagram terkait penelitian: [Diagram Metode Penelitian](./diagram/diagram_metode_penelitian.md).
 
 
-Jika Anda tertarik mengenai proyek vivaldi, silahkan dilanjut bacanya sampai paling bawah. 😁
+Jika Anda tertarik mengenai proyek vivaldi, silahkan dilanjut bacanya sampai paling bawah. 😁 Kalau enggak, gak apa-apa, toh proyeknya juga gak jelas dan belum selesai. 😆
 
 ---
 
 ## Memulai pekerjaan ala vivaldi
 
-Fokus dari cara pengerjaan vivaldi adalah membagi pekerjaan menjadi bagian kecil yang dapat dilaksanakan (_actionable task_). Agar memudahkan memahami cara pengerjaan ala vivaldi berikut diagram rutinitas peneletian.
+(( WORK IN PROGRESS ))
+
+Fokus dari cara pengerjaan vivaldi adalah membagi pekerjaan menjadi bagian kecil yang dapat dilaksanakan (_actionable task_) dan mengkategorikannya dalam empat pekerjaan utama yang saling berhubungan. 
 
 <div align="center">
 <img src="./diagram/assets/DIAGRAM_rutinitas_penelitian.png" height="50%" width="50%"><br>
 </div>
 
-Sederhananya, dalam mengerjakan penelitian bagilah menjadi empat pekerjaan yaitu Riset _Research_, Belajar _Learning_, Pengembangan _Development_, Laporan _Report_. Dengan membagi setiap _actionable task_ ke masing-masing jenis pekerjaan, akan memudahkan untuk melacak dan mencatat perkembangan penelitian. 
+Sederhananya, dalam mengerjakan tesis bagilah menjadi empat pekerjaan yaitu Riset _Research_, Belajar _Learning_, Pengembangan _Development_, Laporan _Report_. Dengan membagi setiap _actionable task_ ke masing-masing jenis pekerjaan, akan memudahkan untuk melacak dan mencatat perkembangan penelitian. 
 
-Untuk lebih jelasnya mengenai empat pekerjaan bisa baca [di halaman ini](./vivaldi/CATATAN_empat_pekerjaan.md).
+(Mau bercerita panjang lebar, cuman keburu males. 😆)
 
 ---
 
 ## Struktur _Repository_
+
+(( WORK IN PROGRESS ))
 
 Pada proyek ini ada dua bagian utama yaitu bagian penelitian/tesis-nya (_product_) dan cara pengerjaannya (_workflow_). Proyek vivaldi lebih fokus ke cara pengerjaannya, akan tetapi hasil penelitian/tesisnya bisa disertakan juga di dalam repository ini (jika memungkinkan).
 
@@ -69,10 +73,18 @@ Kenapa tidak memisahkan antara proyek dokumentasi pengerjaannya dan tesisnya sen
 
 > Karena membagi fokus menjadi dua itu lebih rumit dan kesannya seperti _multi-tasking_. Penggabungan ini memudahkan saya untuk fokus ke pengerjaan tesis saya. 
 
-Apakah ini menjamin penelitian/tesis/tugas akhir saya cepat selesai atau selesai?
+Apakah ini menjamin penelitian/tesis/tugas akhir saya (cepat) selesai?
 
-> Proyek ini tidak menjamin hal tersebut. Proyek ini hanya menyediakan alternatif bagaimana melakukan mengerjakan suatu pekerjaan, untuk proyek ini adalah tesis/penelitian.
+> Proyek ini tidak menjamin hal tersebut. Proyek ini hanya menyediakan alternatif bagaimana mengerjakan tugas akademik, untuk proyek ini adalah tesis/penelitian. Saya sendiri saja belum tentu selesai setelah membuat konsep cara pengerjaannya. 😆 Jadi saran di proyek ini bukan untuk ditelan mentah-mentah.
 >  
-> Gunakan proyek ini untuk merefleksikan diri mengenai produktivitas Anda. Gunakan proyek ini untuk inspirasi bagaimana Anda mengatasi tugas akademik Anda. Jika punya kesulitan, mari diskusikan. 
+> Gunakan proyek ini untuk merefleksikan diri mengenai produktivitas Anda. Gunakan proyek ini untuk memperoleh inspirasi bagaimana mengatasi tugas akademik Anda. Jika memiliki kesulitan, mari diskusikan, atau sekedar curhat sebetapa ~membosankannya~ sulitnya mengerjakan tugas akademik. 😂. 
+
+Proyeknya gak penting banget, apalagi ampe disebut "proyek"?
+
+> Memang. Tapi saat saya buat beginian, saya menikmati aja prosesnya.
+> 
+> Proyek ini bukanlah proyek serius untuk membuat metode pembelajaran efektif dan efisien sejagat raya. Melainkan proyek ini digunakan untuk mempelajari sikap dan cara saya mengatasi kewajiban tugas akademik. Tidak ada bedanya dengan pengerjaan tugas akademik lainnya, disini cuman ditambah penonton dari luar saja.
+> 
+> Bagi saya, proyek ini cukup menyenangkan. Saya bisa berbagi teknik produktivitas yang baru saya contek di video youtube ataupun buku. Saat saya menemukan aplikasi yang menarik, saya juga bisa menerapkan dari sistem pengerjaan yang sudah ada.
 
 ---
