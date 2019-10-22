@@ -1,0 +1,2462 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+
+    
+
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    % MY EDIT
+	% ref: https://tex.stackexchange.com/questions/131015/page-break-after-every-section
+	\let\oldsection\section
+	\renewcommand\section{\clearpage\oldsection} 
+
+    % Document title
+    \title{Prediksi Debit Aliran Menggunakan \emph{Long Short-Term Memory} (LSTM)}
+    \author{Taruma Sakti Megariansyah}
+    \date{22 Oktober 2019}
+
+
+\begin{document}
+
+
+   
+%    \maketitle
+%	ref: https://stackoverflow.com/questions/3141702/vertically-centering-a-title-page
+	\begin{titlepage}
+		\vspace*{\fill}
+		\begin{center}
+ 		\normalsize Laporan Implementasi \\
+		\huge Prediksi Debit Aliran menggunakan \emph{Long Short-Term Memory} (LSTM)\\ 
+		\normalsize Versi 1.0.0 \\[0.2cm]
+      	\small Berdasarkan \emph{Jupyter Notebook}: \texttt{github-taruma\_demo\_lstm\_rr.ipynb} \\[0.5cm]
+		\normalsize oleh Taruma Sakti Megariansyah\\[0.5cm]
+      	\normalsize 22 Oktober 2019\\[1cm]
+    	\adjustimage{max size={0.9\linewidth}{1cm}}{github_taruma_demo_lstm_rr_files/vivaldi_logo.png}\\
+      	\normalsize github.com/taruma/vivaldi
+		\end{center}
+    	\vspace*{\fill}
+	\end{titlepage}
+    
+    
+
+    
+    \hypertarget{prediksi-debit-aliran-menggunakan-long-short-term-memory-lstm}{%
+\section{\texorpdfstring{Prediksi Debit Aliran Menggunakan \emph{Long
+Short-Term Memory}
+(LSTM)}{Prediksi Debit Aliran Menggunakan Long Short-Term Memory (LSTM)}}\label{prediksi-debit-aliran-menggunakan-long-short-term-memory-lstm}}
+
+\emph{Jupyter Notebook} (selanjutnya disebut buku) ini hanya
+\textbf{contoh} dan dibuat untuk \textbf{pembelajaran} mengenai
+\emph{Deep Learning/Neural Networks} dan mendemonstrasikan penggunaan
+\emph{Python} di bidang sumberdaya air. Buku ini masih perlu dievaluasi
+kembali jika digunakan untuk kepentingan riset/penelitian ataupun
+proyek.
+
+Buku ini disertai catatan yang berisikan penjelasan lebih lanjut
+mengenai buku ini (daftar pustaka, penjelasan dataset, dll). Catatan
+dapat diunduh di bagian unduh buku.
+
+\hypertarget{pranala-buku}{%
+\subsection{Pranala buku}\label{pranala-buku}}
+
+Buku ini bisa diunduh dengan berbagai format. Versi Google Colab akan
+lebih diperbarui dibandingkan versi lainnya.
+
+\begin{itemize}
+\tightlist
+\item
+  Pranala Google Colab, format Google Colab versi terakhir
+\item
+  Pranala Github, format .ipynb versi 1.0.0
+\item
+  Lihat melalui NBViewer, format .ipynb versi Github
+\item
+  Unduh Laporan, format PDF versi 1.0.0 dengan \emph{source code} +
+  \emph{outputs}
+\item
+  Unduh Laporan (rapih), format PDF versi 1.0.0 hanya \emph{outputs}*
+\item
+  Unduh Catatan, format PDF versi 1.0.0
+\end{itemize}
+
+Pembuatan laporan dilakukan dengan mengubah buku ke dalam bentuk LaTeX
+dan dilakukan perubahan sedikit, sehingga disarankan untuk mengunduh
+versi laporan (rapih).
+
+\hypertarget{catatan}{%
+\subsection{Catatan}\label{catatan}}
+
+\begin{itemize}
+\tightlist
+\item
+  Buku ini dikembangkan menggunakan
+  \href{https://colab.research.google.com/}{Google Colab}, sehingga
+  penampilan terbaik dan interaktif dari buku ini diperoleh jika dibuka
+  melalui Google Colab.
+\item
+  Anda dapat mendiskusikan mengenai buku ini (atau hal lainnya seperti
+  koreksi, kritik, saran, pertanyaan, dll) melalui isu di
+  \emph{repository}
+  \href{https://github.com/taruma/vivaldi}{taruma/vivaldi} atau dapat
+  menghubungi saya melalui email \(hi@taruma.info\).
+\item
+  Buku ini masih perlu dievaluasi baik dari teori ataupun implementasi.
+  Ini merupakan buku pribadi yang digunakan oleh saya sebagai latihan
+  implementasi \emph{Deep Learning} menggunakan \emph{Python}. Referensi
+  materi pembelajaran saya dapat dilihat pada catatan buku.
+\item
+  \textbf{Biasakan untuk selalu memeriksa kode terlebih dahulu sebelum
+  menjalankannya untuk masalah keamanan}.
+\end{itemize}
+
+    \hypertarget{deskripsi-kasus}{%
+\section{Deskripsi Kasus}\label{deskripsi-kasus}}
+
+Bagian ini menjelaskan gambaran umum mengenai dataset,
+permasalahan/tujuan, dan strategi penyelesaiannya.
+
+    \hypertarget{dataset}{%
+\subsection{Dataset}\label{dataset}}
+
+Dataset merupakan data hidrologi dan klimatologi \textbf{harian} dari
+tanggal \textbf{1 Januari 1998} sampai \textbf{31 Desember 2008} Daerah
+Aliran Sungai (DAS) Bendung Baru Pamarayan. Dataset terpisah menjadi 3
+kategori yaitu: data curah hujan, data klimatologi, dan data debit.
+
+\begin{itemize}
+\tightlist
+\item
+  Data curah hujan diperoleh dari 8 stasiun yaitu:
+  \texttt{bojong\_manik}, \texttt{gunung\_tunggal}, \texttt{pasir\_ona},
+  \texttt{sampang\_peundeuy}, \texttt{cimarga}, \texttt{bd\_pamarayan},
+  \texttt{ciminyak\_cilaki}, \texttt{gardu\_tanjak}.
+\item
+  Data debit diperoleh dari 1 stasiun yaitu: \texttt{bd\_pamarayan}.
+\item
+  Data klimatologi diperoleh dari 1 stasiun yaitu:
+  \texttt{geofisika\_serang}.
+\end{itemize}
+
+Rincian mengenai dataset bisa dibaca di catatan buku.
+
+    \hypertarget{objektif}{%
+\subsection{Objektif}\label{objektif}}
+
+\hypertarget{tujuan}{%
+\subsubsection{Tujuan}\label{tujuan}}
+
+\begin{itemize}
+\tightlist
+\item
+  Peneliti ingin mengetahui nilai debit berdasarkan data hidrologi dan
+  klimatologi yang tersedia pada waktu sebelumnya.
+\end{itemize}
+
+\hypertarget{batasan-masalah}{%
+\subsubsection{Batasan Masalah}\label{batasan-masalah}}
+
+\begin{itemize}
+\tightlist
+\item
+  Arsitektur (sel) \emph{Recurrent Neural Networks} yang akan digunakan
+  adalah \emph{Long Short-Term Memory} (LSTM).
+\item
+  Data yang hilang (\texttt{NaN}) diisi menggunakan metode interpolasi
+  linear.
+\item
+  Diasumsikan bahwa data tidak perlu diverifikasi.
+\item
+  Jika data yang hilang lebih dari 1 tahun berurutan, maka paramater
+  tersebut akan diabaikan.
+\item
+  Pelatihan model (training) menggunakan data dari tahun \textbf{1998 -
+  2006}.
+\item
+  Tidak dilakukan \emph{feature engineering}, kolom yang bertipe ordinal
+  atau kategori diabaikan.
+\item
+  Tidak ada tahapan pemilihan model terbaik (\emph{model selection}).
+  Parameter akan sembarang mengikuti tulisan Kratzert et al (2018).
+\item
+  Berdasarkan Kratzert et al (2018), pada buku ini mengikuti bahwa
+  dataset hanya dibagi dua bagian yaitu \emph{train set} dan \emph{test
+  set}, dimana validasi menggunakan \emph{test set}.
+\end{itemize}
+
+\hypertarget{pertanyaan}{%
+\subsubsection{Pertanyaan}\label{pertanyaan}}
+
+\begin{itemize}
+\tightlist
+\item
+  Berapa nilai debit pada waktu \(t\) jika telah diketahui nilai
+  observasi pada waktu \(timesteps\) hari sebelumnya?
+\end{itemize}
+
+    \hypertarget{tahap-0-pengaturan-awal-dan-inisiasi}{%
+\section{TAHAP 0: Pengaturan Awal dan
+Inisiasi}\label{tahap-0-pengaturan-awal-dan-inisiasi}}
+
+Pada tahap ini akan dilakukan pengaturan awal dan inisiasi dengan
+melakukan atau menjawab daftar berikut:
+
+\begin{itemize}
+\tightlist
+\item
+  Menentukan penggunaan \emph{runtime} lokal atau \emph{Google Colab}.
+\item
+  Menentukan nama buku/proyek dan versi (digunakan jika melakukan
+  penyimpanan).
+\item
+  Memeriksa paket hidrokit.
+\item
+  Menampilkan versi paket yang digunakan pada sistem.
+\item
+  Impor paket utama yang akan digunakan (numpy, pandas, matplotlib).
+\end{itemize}
+
+    \hypertarget{pengaturan-buku}{%
+\subsection{Pengaturan Buku}\label{pengaturan-buku}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{1}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title PENGGUNAAN RUNTIME (GOOGLE COLAB/LOKAL) \PYZob{} display\PYZhy{}mode: \PYZdq{}form\PYZdq{} \PYZcb{}}
+\PY{c+c1}{\PYZsh{}@markdown Centang jika menggunakan sistem lokal.}
+
+\PY{n}{\PYZus{}IS\PYZus{}LOCALE} \PY{o}{=} \PY{k+kc}{False} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}boolean\PYZdq{}\PYZcb{}}
+\PY{n}{\PYZus{}server} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Google Colab}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LOKAL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: INFORMASI RUNTIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: Buku ini menggunakan RUNTIME: }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{\PYZus{}server}\PY{p}{[}\PY{n}{\PYZus{}IS\PYZus{}LOCALE}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: INFORMASI RUNTIME
+:: BUKU INI MENGGUNAKAN RUNTIME: GOOGLE COLAB
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{2}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title DESKRIPSI PROYEK \PYZob{} display\PYZhy{}mode: \PYZdq{}form\PYZdq{} \PYZcb{}}
+\PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{datetime}\PY{p}{,} \PY{n}{timezone}\PY{p}{,} \PY{n}{timedelta}
+
+\PY{n}{NOTEBOOK\PYZus{}NAME} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{taruma\PYZus{}demo\PYZus{}lstm\PYZus{}rr}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+\PY{n}{NOTEBOOK\PYZus{}VERSION} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1.0.0}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+\PY{n}{\PYZus{}current\PYZus{}time\PYZus{}jakarta} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{n}{timezone}\PY{p}{(}\PY{n}{timedelta}\PY{p}{(}\PY{n}{hours}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n}{\PYZus{}prefix} \PY{o}{=} \PY{n}{\PYZus{}current\PYZus{}time\PYZus{}jakarta}\PY{o}{.}\PY{n}{strftime}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{project\PYZus{}title} \PY{o}{=} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZus{}prefix\PYZcb{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+si}{\PYZob{}NOTEBOOK\PYZus{}NAME\PYZcb{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{NOTEBOOK\PYZus{}VERSION.replace(}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{, }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: INFORMASI PROYEK/BUKU}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: [project\PYZus{}title]: }\PY{l+s+si}{\PYZob{}project\PYZus{}title\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: INFORMASI PROYEK/BUKU
+:: [project\_title]: 20191022\_0807\_taruma\_demo\_lstm\_rr\_1\_0\_0
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{3}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title MENGGUNAKAN TENSORFLOW 2.x (Google Colab)}
+
+\PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{absolute\PYZus{}import}\PY{p}{,} \PY{n}{division}\PY{p}{,} \PY{n}{print\PYZus{}function}\PY{p}{,} \PY{n}{unicode\PYZus{}literals}
+
+\PY{k}{try}\PY{p}{:}
+  \PY{c+c1}{\PYZsh{} \PYZpc{}tensorflow\PYZus{}version only exists in Colab.}
+  \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGGUNAKAN TENSORFLOW 2.x (GOOGLE COLAB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+  \PY{o}{\PYZpc{}}\PY{k}{tensorflow\PYZus{}version} 2.x
+\PY{k}{except} \PY{n+ne}{Exception}\PY{p}{:}
+  \PY{k}{pass}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGGUNAKAN TENSORFLOW 2.x (GOOGLE COLAB)
+TensorFlow 2.x selected.
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{4}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title PERIKSA PAKET HIDROKIT \PYZob{} display\PYZhy{}mode: \PYZdq{}form\PYZdq{} \PYZcb{}}
+\PY{c+c1}{\PYZsh{}@markdown Memeriksa paket hidrokit dan memasangnya jika diperlukan.}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: memeriksa paket hidrokit}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{k}{if} \PY{n}{\PYZus{}IS\PYZus{}LOCALE}\PY{p}{:}
+    \PY{k}{try}\PY{p}{:}
+        \PY{k+kn}{import} \PY{n+nn}{hidrokit}
+    \PY{k}{except} \PY{n}{ModuleNotFoundError}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hidrokit tidak ditemukan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+    \PY{k}{try}\PY{p}{:}
+        \PY{k+kn}{import} \PY{n+nn}{hidrokit}
+    \PY{k}{except} \PY{n}{ModuleNotFoundError}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: instalasi paket hidrokit}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{upper}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        \PY{o}{!}pip install git+https://github.com/taruma/hidrokit.git@latest \PYZhy{}q
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA PAKET HIDROKIT
+:: INSTALASI PAKET HIDROKIT
+  Building wheel for hidrokit (setup.py) {\ldots} done
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{5}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title MENAMPILKAN VERSI PADA SISTEM}
+\PY{k}{def} \PY{n+nf}{\PYZus{}check\PYZus{}system}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+    \PY{k+kn}{from} \PY{n+nn}{numpy} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{numpy\PYZus{}ver}
+    \PY{k+kn}{from} \PY{n+nn}{pandas} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{pandas\PYZus{}ver}
+    \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{matplotlib\PYZus{}ver}
+    \PY{k+kn}{from} \PY{n+nn}{tensorflow} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{tensorflow\PYZus{}ver}
+    \PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{keras} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{keras\PYZus{}ver}
+    \PY{k+kn}{from} \PY{n+nn}{hidrokit}\PY{n+nn}{.}\PY{n+nn}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}} \PY{k}{as} \PY{n}{hidrokit\PYZus{}ver}
+    \PY{k+kn}{from} \PY{n+nn}{sys} \PY{k}{import} \PY{n}{version\PYZus{}info} \PY{k}{as} \PY{n}{python\PYZus{}info}
+
+    \PY{n}{ALL\PYZus{}SYSTEM} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python numpy pandas matplotlib tensorflow keras hidrokit}\PY{l+s+s1}{\PYZsq{}}
+    \PY{n}{SYSTEM\PYZus{}INFO} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+    
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: INFORMASI VERSI SISTEM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{k}{for} \PY{n}{library} \PY{o+ow}{in} \PY{n}{ALL\PYZus{}SYSTEM}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+        \PY{k}{if} \PY{n}{library}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{python}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+            \PY{n}{python\PYZus{}ver} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{o}{*}\PY{n}{python\PYZus{}info}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: }\PY{l+s+si}{\PYZob{}:\PYZgt{}12s\PYZcb{}}\PY{l+s+s1}{ version: }\PY{l+s+si}{\PYZob{}:\PYZlt{}10s\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{library}\PY{p}{,} \PY{n+nb}{eval}\PY{p}{(}\PY{n}{library} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}ver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+        \PY{n}{SYSTEM\PYZus{}INFO}\PY{p}{[}\PY{n}{library}\PY{p}{]} \PY{o}{=} \PY{n+nb}{eval}\PY{p}{(}\PY{n}{library} \PY{o}{+} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}ver}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    
+    \PY{k}{return} \PY{n}{SYSTEM\PYZus{}INFO}
+\PY{n}{\PYZus{}SYSTEM\PYZus{}INFO} \PY{o}{=} \PY{n}{\PYZus{}check\PYZus{}system}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: INFORMASI VERSI SISTEM
+::       python version: 3.6.8
+::        numpy version: 1.16.5
+::       pandas version: 0.24.2
+::   matplotlib version: 3.0.3
+::   tensorflow version: 2.0.0
+::        keras version: 2.2.4-tf
+::     hidrokit version: 0.3.2
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{0}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title LOKASI PENYIMPANAN DATASET}
+\PY{k+kn}{from} \PY{n+nn}{pathlib} \PY{k}{import} \PY{n}{Path}
+
+\PY{k}{if} \PY{n}{\PYZus{}IS\PYZus{}LOCALE}\PY{p}{:}
+    \PY{n}{LOCAL\PYZus{}PATH} \PY{o}{=} \PY{n}{Path}\PY{o}{.}\PY{n}{home}\PY{p}{(}\PY{p}{)}
+    \PY{k}{if} \PY{n}{LOCAL\PYZus{}PATH}\PY{o}{.}\PY{n}{as\PYZus{}posix}\PY{p}{(}\PY{p}{)} \PY{o}{!=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{C:/Users/tarumainfo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+        \PY{k}{raise} \PY{n+ne}{Exception}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{BUBARKAN!}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{}@markdown \PYZsh{}\PYZsh{}\PYZsh{} Pengaturan sistem lokal}
+    \PY{c+c1}{\PYZsh{}@markdown Isi alamat relatif terhadap `Pathlib.Path.home()`.}
+    \PY{n}{\PYZus{}LOCAL\PYZus{}DROP} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}dropbox}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+    \PY{n}{\PYZus{}LOCAL\PYZus{}DATASET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}dataset/\PYZus{}uma\PYZus{}pamarayan}\PY{l+s+s1}{\PYZsq{}}  \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+    \PY{n}{DROP\PYZus{}PATH} \PY{o}{=} \PY{n}{LOCAL\PYZus{}PATH} \PY{o}{/} \PY{n}{\PYZus{}LOCAL\PYZus{}DROP}
+    \PY{n}{DATASET\PYZus{}PATH} \PY{o}{=} \PY{n}{LOCAL\PYZus{}PATH} \PY{o}{/} \PY{n}{\PYZus{}LOCAL\PYZus{}DATASET}
+\PY{k}{else}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} GOOGLE DRIVE}
+    \PY{k+kn}{from} \PY{n+nn}{google}\PY{n+nn}{.}\PY{n+nn}{colab} \PY{k}{import} \PY{n}{drive}
+    \PY{n}{drive}\PY{o}{.}\PY{n}{mount}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/gdrive}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{}@markdown \PYZsh{}\PYZsh{}\PYZsh{} Pengaturan sistem lokal}
+    \PY{c+c1}{\PYZsh{}@markdown Isi alamat relatif terhadap `/content/gdrive/My Drive/Colab Notebooks`.}
+    \PY{n}{DRIVE\PYZus{}PATH} \PY{o}{=} \PY{n}{Path}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{/content/gdrive/My Drive/Colab Notebooks}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{n}{\PYZus{}DRIVE\PYZus{}DROP} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}dropbox}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+    \PY{n}{\PYZus{}DRIVE\PYZus{}DATASET} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}dataset/uma\PYZus{}pamarayan}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+    \PY{n}{DROP\PYZus{}PATH} \PY{o}{=} \PY{n}{DRIVE\PYZus{}PATH} \PY{o}{/} \PY{n}{\PYZus{}DRIVE\PYZus{}DROP}
+    \PY{n}{DATASET\PYZus{}PATH} \PY{o}{=} \PY{n}{DRIVE\PYZus{}PATH} \PY{o}{/} \PY{n}{\PYZus{}DRIVE\PYZus{}DATASET}
+
+\PY{c+c1}{\PYZsh{}@markdown \PYZhy{}\PYZhy{}\PYZhy{}}
+\PY{c+c1}{\PYZsh{}@markdown \PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{}\PYZsh{} Catatan: Gunakan variabel `DROP\PYZus{}PATH` dan `DATASET\PYZus{}PATH` saat berinteraksi dengan fungsi Input/Output (IO).}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{7}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: LOKASI PENYIMPANAN DATASET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DATASET\PYZus{}PATH = }\PY{l+s+si}{\PYZob{}DATASET\PYZus{}PATH\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DROP\PYZus{}PATH = }\PY{l+s+si}{\PYZob{}DROP\PYZus{}PATH\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: LOKASI PENYIMPANAN DATASET
+DATASET\_PATH = /content/gdrive/My Drive/Colab Notebooks/\_dataset/uma\_pamarayan
+DROP\_PATH = /content/gdrive/My Drive/Colab Notebooks/\_dropbox
+    \end{Verbatim}
+
+    \hypertarget{persiapan-sistem}{%
+\subsection{Persiapan sistem}\label{persiapan-sistem}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{8}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{} IMPORT LIBRARIES}
+\PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+\PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+\PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: IMPORT LIBRARY (NUMPY, PANDAS, MATPLOTLIB)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: IMPORT LIBRARY (NUMPY, PANDAS, MATPLOTLIB)
+    \end{Verbatim}
+
+    \hypertarget{tahap-1-akuisisi-dataset}{%
+\section{TAHAP 1: AKUISISI DATASET}\label{tahap-1-akuisisi-dataset}}
+
+Pada tahap ini, tujuan utamanya adalah membaca seluruh dataset yang
+dimiliki dan mengimpor dataset tersebut untuk pengolahan prapemrosesan
+data (\emph{data preprocessing}).
+
+    \hypertarget{data-hujan}{%
+\subsection{DATA HUJAN}\label{data-hujan}}
+
+Pada kasus ini, terdapat 8 stasiun yang akan digunakan sehingga terdapat
+8 berkas excel. Setiap berkas memiliki data curah hujan dari tahun 1998
+hingga 2008 yang disimpan pada masing-masing \emph{sheet} untuk setiap
+tahunnya.
+
+Untuk memperoleh data tersebut dalam bentuk tabel (bukan dalam bentuk
+pivot) digunakan modul yang tersedia di \texttt{hidrokit} (hanya pada
+versi 0.3.x). Modul dapat diakses melalui
+\texttt{hidrokit.contrib.taruma.hk43}
+(\href{https://nbviewer.jupyter.org/gist/taruma/a9dd4ea61db2526853b99600909e9c50}{panduan}).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{9}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{hidrokit}\PY{n+nn}{.}\PY{n+nn}{contrib}\PY{n+nn}{.}\PY{n+nn}{taruma} \PY{k}{import} \PY{n}{hk43}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMBACA DATA HUJAN DARI [DATASET\PYZus{}PATH]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{hujan\PYZus{}raw}\PY{p}{,} \PY{n}{hujan\PYZus{}invalid} \PY{o}{=} \PY{n}{hk43}\PY{o}{.}\PY{n}{read\PYZus{}folder}\PY{p}{(}
+    \PY{n}{DATASET\PYZus{}PATH}\PY{p}{,} \PY{n}{pattern}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hujan\PYZus{}*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uma.hujan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hujan\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{invalid}\PY{o}{=}\PY{k+kc}{True}
+\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMBACA DATA HUJAN DARI [DATASET\_PATH]
+Found 8 file(s)
+::  1  :        hujan\_bojong\_manik\_1998\_2008.xls
+::  2  :        hujan\_gunung\_tunggal\_1998\_2008.xls
+::  3  :        hujan\_pasir\_ona\_1998\_2008.xls
+::  4  :        hujan\_sampang\_peundeuy\_1998\_2008.xls
+::  5  :        hujan\_cimarga\_1998\_2008.xls
+::  6  :        hujan\_bd\_pamarayan\_1998\_2008.xls
+::  7  :        hujan\_ciminyak\_cilaki\_1998\_2008.xls
+::  8  :        hujan\_gardu\_tanjak\_1998\_2008.xls
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{10}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: tipe [hujan\PYZus{}raw] = }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{type(hujan\PYZus{}raw)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: tipe [hujan\PYZus{}invalid] = }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{type(hujan\PYZus{}invalid)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: tipe [hujan\_raw] = <class 'dict'>
+:: tipe [hujan\_invalid] = <class 'dict'>
+    \end{Verbatim}
+
+    \hypertarget{data-debit}{%
+\subsection{DATA DEBIT}\label{data-debit}}
+
+Untuk data debit, dilakukan hal yang serupa dengan data hujan.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{11}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMBACA DATA DEBIT DARI [DATASET\PYZus{}PATH]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{debit\PYZus{}raw}\PY{p}{,} \PY{n}{debit\PYZus{}invalid} \PY{o}{=} \PY{n}{hk43}\PY{o}{.}\PY{n}{read\PYZus{}folder}\PY{p}{(}
+    \PY{n}{DATASET\PYZus{}PATH}\PY{p}{,} \PY{n}{pattern}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit\PYZus{}*}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{fmt}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{uma.debit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{prefix}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+    \PY{n}{invalid}\PY{o}{=}\PY{k+kc}{True}
+\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMBACA DATA DEBIT DARI [DATASET\_PATH]
+Found 1 file(s)
+::  1  :        debit\_bd\_pamarayan\_1998\_2008.xls
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{12}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: tipe [debit\PYZus{}raw] = }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{type(debit\PYZus{}raw)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: tipe [debit\PYZus{}invalid] = }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{type(debit\PYZus{}invalid)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: tipe [debit\_raw] = <class 'dict'>
+:: tipe [debit\_invalid] = <class 'dict'>
+    \end{Verbatim}
+
+    \hypertarget{data-klimatologi}{%
+\subsection{DATA KLIMATOLOGI}\label{data-klimatologi}}
+
+Data klimatologi diperoleh dari situs data online bmkg. Data klimatologi
+dari bmkg lebih mudah di impor dikarenakan data sudah tersedia dalam
+bentuk tabel.
+
+Digunakan modul \texttt{hidrokit.contrib.taruma.hk73}
+(\href{https://nbviewer.jupyter.org/gist/taruma/b00880905f297013f046dad95dc2e284}{panduan})
+agar memudahkan proses impornya.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{13}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{hidrokit}\PY{n+nn}{.}\PY{n+nn}{contrib}\PY{n+nn}{.}\PY{n+nn}{taruma} \PY{k}{import} \PY{n}{hk73}
+
+\PY{n}{KLIMATOLOGI\PYZus{}PATH} \PY{o}{=} \PY{n}{DATASET\PYZus{}PATH} \PY{o}{/} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{klimatologi\PYZus{}serang\PYZus{}1998\PYZus{}2008.xlsx}\PY{l+s+s1}{\PYZsq{}}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: [KLIMATOLOGI\PYZus{}PATH] = }\PY{l+s+si}{\PYZob{}KLIMATOLOGI\PYZus{}PATH\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMBACA DATA KLIMATOLOGI DARI [KLIMATOLOGI\PYZus{}PATH]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}klimatologi} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}read\PYZus{}bmkg}\PY{p}{(}\PY{n}{KLIMATOLOGI\PYZus{}PATH}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: tipe [df\PYZus{}klimatologi] = }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{type(df\PYZus{}klimatologi)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: [KLIMATOLOGI\_PATH] = /content/gdrive/My Drive/Colab
+Notebooks/\_dataset/uma\_pamarayan/klimatologi\_serang\_1998\_2008.xlsx
+:: MEMBACA DATA KLIMATOLOGI DARI [KLIMATOLOGI\_PATH]
+:: tipe [df\_klimatologi] = <class 'pandas.core.frame.DataFrame'>
+    \end{Verbatim}
+
+    \hypertarget{tahap-2-prapemrosesan-data}{%
+\section{TAHAP 2: PRAPEMROSESAN DATA}\label{tahap-2-prapemrosesan-data}}
+
+Pada tahap ini, dataset yang telah diimpor akan diperiksa dan
+dipersiapkan untuk pengolahan data di tahap selanjutnya. Berikut yang
+dilakukan pada tahap ini:
+
+\begin{itemize}
+\tightlist
+\item
+  Memastikan dataset berupa \texttt{pandas.DataFrame}.
+\item
+  Memeriksa data yang invalid (salah input/bukan bilangan).
+\item
+  Mengoreksi nilai yang invalid.
+\item
+  Mengubah tipe data pada dataframe menjadi numerik.
+\item
+  Memeriksa data yang hilang (\texttt{NaN}).
+\item
+  Mengisi nilai hilang dengan metode interpolasi linear.
+\item
+  Menyesuaikan kelengkapan dataset.
+\end{itemize}
+
+    \hypertarget{data-hujan}{%
+\subsection{DATA HUJAN}\label{data-hujan}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGUBAH [hujan\PYZus{}raw] MENJADI [df\PYZus{}hujan] SEBAGAI DATAFRAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{hujan\PYZus{}raw}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{19980101}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081231}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN [df\PYZus{}hujan]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGUBAH [hujan\_raw] MENJADI [df\_hujan] SEBAGAI DATAFRAME
+:: MENAMPILKAN [df\_hujan]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{14}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+           hujan\_bojong\_manik  {\ldots} hujan\_gardu\_tanjak
+1998-01-01                  -  {\ldots}                  -
+1998-01-02                  -  {\ldots}                  -
+1998-01-03                  5  {\ldots}                  5
+1998-01-04                  -  {\ldots}                  -
+1998-01-05                  -  {\ldots}                  -
+
+[5 rows x 8 columns]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA NILAI INVALID PADA [df\PYZus{}hujan]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN NILAI INVALID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{\PYZus{}hujan\PYZus{}invalid} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{hujan\PYZus{}invalid}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{hujan\PYZus{}invalid}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: NILAI INVALID BERUPA = }\PY{l+s+si}{\PYZob{}\PYZus{}hujan\PYZus{}invalid\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA NILAI INVALID PADA [df\_hujan]
+:: MENAMPILKAN NILAI INVALID
+:: NILAI INVALID BERUPA = ['-', 'NaN']
+    \end{Verbatim}
+
+    Dari \texttt{hujan\_invalid} diketahui bahwa pada data hujan memiliki
+data invalid berupa isian ``\texttt{-}'' dan ``\texttt{NaN}''. Isian
+``\texttt{-}'' pada data curah hujan menandakan bahwa tidak ada hujan
+atau bernilai \texttt{0.}. Sedangkan data ``\texttt{NaN}'' menandakan
+bahwa data tidak terekam sama sekali sehingga tidak diketahui terjadi
+hujan atau tidak.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGOREKSI NILAI INVALID PADA [df\PYZus{}hujan]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGOREKSI NILAI }\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{ MENJADI 0.0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan}\PY{p}{[}\PY{n}{df\PYZus{}hujan} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{0.}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGOREKSI NILAI INVALID PADA [df\_hujan]
+:: MENGOREKSI NILAI "-" MENJADI 0.0
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{:: MENGUBAH TIPE DATA PADA DATAFRAME [df\PYZus{}hujan]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan} \PY{o}{=} \PY{n}{df\PYZus{}hujan}\PY{o}{.}\PY{n}{infer\PYZus{}objects}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{:: MENAMPILKAN INFORMASI DATAFRAME [df\PYZus{}hujan]:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGUBAH TIPE DATA PADA DATAFRAME [df\_hujan]
+:: MENAMPILKAN INFORMASI DATAFRAME [df\_hujan]:
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 4018 entries, 1998-01-01 to 2008-12-31
+Freq: D
+Data columns (total 8 columns):
+hujan\_bojong\_manik        4017 non-null float64
+hujan\_gunung\_tunggal      4018 non-null float64
+hujan\_pasir\_ona           4018 non-null float64
+hujan\_sampang\_peundeuy    4016 non-null float64
+hujan\_cimarga             4018 non-null float64
+hujan\_bd\_pamarayan        4016 non-null float64
+hujan\_ciminyak\_cilaki     4018 non-null float64
+hujan\_gardu\_tanjak        4018 non-null float64
+dtypes: float64(8)
+memory usage: 282.5 KB
+    \end{Verbatim}
+
+    Dari informasi diatas diketahui bahwa tipe data pada dataframe telah
+diubah menjadi berbentuk numerik.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGISI NILAI HILANG MENGGUNAKAN METODE INTERPOLASI LINEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n}{df\PYZus{}hujan}\PY{o}{.}\PY{n}{bfill}\PY{p}{(}\PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)} \PY{c+c1}{\PYZsh{} Mengatasi nilai hilang pada index [0, 1]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGISI NILAI HILANG MENGGUNAKAN METODE INTERPOLASI LINEAR
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA JIKA [df\PYZus{}hujan] MASIH MEMILIKI NILAI YANG HILANG:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{df\PYZus{}hujan.isnull().values.any()\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA JIKA [df\_hujan] MASIH MEMILIKI NILAI YANG HILANG: False
+    \end{Verbatim}
+
+    \hypertarget{data-debit}{%
+\subsection{DATA DEBIT}\label{data-debit}}
+
+Langkahnya serupa dengan data hujan.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGUBAH [debit\PYZus{}raw] MENJADI [df\PYZus{}debit] SEBAGAI DATAFRAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{debit\PYZus{}raw}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{pd}\PY{o}{.}\PY{n}{date\PYZus{}range}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{19980101}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081231}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN [df\PYZus{}debit]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGUBAH [debit\_raw] MENJADI [df\_debit] SEBAGAI DATAFRAME
+:: MENAMPILKAN [df\_debit]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+           debit\_bd\_pamarayan
+1998-01-01                  0
+1998-01-02                  0
+1998-01-03                  0
+1998-01-04                  0
+1998-01-05                  0
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA NILAI INVALID PADA [df\PYZus{}debit]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN NILAI INVALID}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{\PYZus{}debit\PYZus{}invalid} \PY{o}{=} \PY{n+nb}{list}\PY{p}{(}\PY{n}{debit\PYZus{}invalid}\PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{debit\PYZus{}invalid}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: NILAI INVALID BERUPA = }\PY{l+s+si}{\PYZob{}\PYZus{}debit\PYZus{}invalid\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA NILAI INVALID PADA [df\_debit]
+:: MENAMPILKAN NILAI INVALID
+:: NILAI INVALID BERUPA = ['20.9.46', 'NaN', 'tad']
+    \end{Verbatim}
+
+    Dari \texttt{debit\_invalid} diketahui bahwa \texttt{df\_debit} memiliki
+nilai invalid berupa ``\texttt{20.9.46}'', ``\texttt{NaN}'', dan
+``\texttt{tad}''. Nilai ``\texttt{tad}'' diartikan sebagai tidak ada
+data, sedangkan ``\texttt{NaN}'' adalah data yang hilang. Untuk nilai
+``\texttt{20.9.46}'', diasumsikan terjadi kekeliruan saat memasukkan
+nilai, nilai tersebut dikoreksi menjadi \texttt{209.46}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{22}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGOREKSI NILAI 20.9.46 MENJADI 209.46}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit}\PY{p}{[}\PY{n}{df\PYZus{}debit} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20.9.46}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{209.46}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGOREKSI NILAI tad MENJADI NaN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit}\PY{p}{[}\PY{n}{df\PYZus{}debit} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{nan}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGOREKSI NILAI 20.9.46 MENJADI 209.46
+:: MENGOREKSI NILAI tad MENJADI NaN
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{23}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{:: MENGUBAH TIPE DATA PADA DATAFRAME [df\PYZus{}debit]}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit} \PY{o}{=} \PY{n}{df\PYZus{}debit}\PY{o}{.}\PY{n}{infer\PYZus{}objects}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{:: MENAMPILKAN INFORMASI DATAFRAME [df\PYZus{}debit]:}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGUBAH TIPE DATA PADA DATAFRAME [df\_debit]
+:: MENAMPILKAN INFORMASI DATAFRAME [df\_debit]:
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 4018 entries, 1998-01-01 to 2008-12-31
+Freq: D
+Data columns (total 1 columns):
+debit\_bd\_pamarayan    4016 non-null float64
+dtypes: float64(1)
+memory usage: 62.8 KB
+    \end{Verbatim}
+
+    Dari informasi diatas diketahui bahwa tipe data pada dataframe telah
+diubah menjadi berbentuk numerik.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{24}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGISI NILAI HILANG MENGGUNAKAN METODE INTERPOLASI LINEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}debit}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGISI NILAI HILANG MENGGUNAKAN METODE INTERPOLASI LINEAR
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{25}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA JIKA [df\PYZus{}debit] MASIH MEMILIKI NILAI YANG HILANG:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{df\PYZus{}debit.isnull().values.any()\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA JIKA [df\_debit] MASIH MEMILIKI NILAI YANG HILANG: False
+    \end{Verbatim}
+
+    Nilai \texttt{0.} dapat berarti terjadi kekeringan atau pengeringan
+(pada berkas tercantum ``pengeringan'' pada periode 13 Oktober 2000-31
+Oktober 2000).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{26}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA KEKERINGAN PADA DATA DEBIT}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{} Menggunakan modul hk73 (lihat pada bagian bmkg untuk lebih jelasnya)}
+\PY{k+kn}{from} \PY{n+nn}{hidrokit}\PY{n+nn}{.}\PY{n+nn}{contrib}\PY{n+nn}{.}\PY{n+nn}{taruma} \PY{k}{import} \PY{n}{hk73}
+
+\PY{n}{\PYZus{}debit\PYZus{}zero} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}get\PYZus{}index1D}\PY{p}{(}\PY{p}{(}\PY{n}{df\PYZus{}debit} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\PY{n}{\PYZus{}debit\PYZus{}zero\PYZus{}date} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}group\PYZus{}as\PYZus{}index}\PY{p}{(}
+    \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}group\PYZus{}as\PYZus{}list}\PY{p}{(}\PY{n}{\PYZus{}debit\PYZus{}zero}\PY{p}{)}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{df\PYZus{}debit}\PY{o}{.}\PY{n}{index}\PY{p}{,}
+    \PY{n}{date\PYZus{}format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{b }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: Kekeringan terjadi pada tanggal: }\PY{l+s+si}{\PYZob{}\PYZus{}debit\PYZus{}zero\PYZus{}date\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA KEKERINGAN PADA DATA DEBIT
+:: Kekeringan terjadi pada tanggal: ['01 Jan 1998-28 Feb 1998', '15 Mar 1999',
+'29 Oct 1999-31 Oct 1999', '13 Oct 2001-31 Oct 2001', '24 Oct 2003-25 Oct 2003',
+'15 Jun 2004', '31 Aug 2004', '16 Nov 2004-30 Nov 2004', '08 Oct 2005', '11 Oct
+2005-13 Oct 2005', '02 Oct 2006-19 Oct 2006', '16 Oct 2007-18 Oct 2007', '07 Sep
+2008', '17 Oct 2008-18 Oct 2008']
+    \end{Verbatim}
+
+    Pada awal dataset (1 Januari 1998-28 Februari 1998) selama dua bulan
+bernilai 0. secara beruntun. Saya mengasumsikan ini bukan terkait
+kekeringan/pengeringan, melainkan data pengukuran dimulai pada bulan
+maret tahun 1998. Sehingga, saya simpulkan bahwa dalam pemodelan
+\textbf{dataset akan dimulai pada tanggal 1 Maret 1998}.
+
+    \hypertarget{data-klimatologi}{%
+\subsection{DATA KLIMATOLOGI}\label{data-klimatologi}}
+
+Proses pada data klimatologi tidak jauh berbeda dengan proses data
+hujan/debit. Akan tetapi karena data klimatologi berasalkan dari sumber
+berbeda (BMKG), maka implementasinya akan berbeda dengan implementasi
+pada data hujan/debit.
+
+Pada modul \texttt{hidrokit.contrib.taruma.hk73}
+(\href{https://nbviewer.jupyter.org/gist/taruma/b00880905f297013f046dad95dc2e284}{panduan})
+telah disiapkan beberapa fungsi yang memudahkan untuk memeriksa data
+klimatologi.
+
+    \hypertarget{persiapan}{%
+\subsubsection{Persiapan}\label{persiapan}}
+
+Pada tahap 1, data klimatologi telah berbentuk \texttt{DataFrame},
+sehingga dapat langsung dilakukan prapemrosesan data.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN DATAFRAME [df\PYZus{}klimatologi]:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}klimatologi}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENAMPILKAN DATAFRAME [df\_klimatologi]:
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{27}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+              Tn    Tx  Tavg  RH\_avg   RR   ss  ff\_x  ddd\_x  ff\_avg ddd\_car
+Tanggal
+1998-01-01  23.0  34.6  27.5      75  0.0  5.8     5    225       2      SW
+1998-01-02  23.2  34.2  28.6      69  0.0  7.6     4    270       1      NE
+1998-01-03  24.0  34.6  27.7      76  0.0  5.6     7    270       2      W
+1998-01-04  23.8  34.4  28.4      70  0.0  8.0     7    225       3      SW
+1998-01-05  23.5  33.4  27.7      74  1.0  3.5     6    270       2      W
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Sebelum melanjutkan dalam prapemrosesan data pada data klimatologi,
+terdapat beberapa kolom yang dihilangkan karena batasan masalah buku ini
+dan mempermudah saat pemodelan. Kolom yang digunakan hanya kolom numerik
+yang bersifat kontinu.\\
+Berikut kolom yang dihilangkan:
+
+\begin{itemize}
+\tightlist
+\item
+  kolom \texttt{ddd\_car}, kolom ini merupakan kolom kategori yang tidak
+  berupa angka.
+\item
+  kolom \texttt{ff\_x}, \texttt{ddd\_x}, \texttt{ff\_avg}, kolom ini
+  (dapat) berupa kolom ordinal.
+\end{itemize}
+
+Kolom tersebut dapat diubah melalui proses \emph{feature engineering}.
+Referensi lanjut bisa baca
+\href{https://towardsdatascience.com/smarter-ways-to-encode-categorical-data-for-machine-learning-part-1-of-3-6dca2f71b159}{di
+sini} dan
+\href{https://towardsdatascience.com/basic-feature-engineering-to-reach-more-efficient-machine-learning-6294022e17a5}{di
+sini}.
+
+Selain itu, berdasarkan Megariansyah (2015) kolom \texttt{RR} (curah
+hujan) tidak dapat digunakan karena stasiun tersebut tidak termasuk pada
+wilayah Daerah Aliran Sungai (DAS) yang dikaji.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{28}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMBERSIHKAN [df\PYZus{}klimatologi] KE DATAFRAME [df\PYZus{}klimatologi\PYZus{}clean]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{df\PYZus{}klimatologi\PYZus{}clean} \PY{o}{=} \PY{n}{df\PYZus{}klimatologi}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ddd\PYZus{}car}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ff\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ddd\PYZus{}x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ff\PYZus{}avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\PY{n}{df\PYZus{}klimatologi\PYZus{}clean}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMBERSIHKAN [df\_klimatologi] KE DATAFRAME [df\_klimatologi\_clean]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{28}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+              Tn    Tx  Tavg  RH\_avg   ss
+Tanggal
+1998-01-01  23.0  34.6  27.5      75  5.8
+1998-01-02  23.2  34.2  28.6      69  7.6
+1998-01-03  24.0  34.6  27.7      76  5.6
+1998-01-04  23.8  34.4  28.4      70  8.0
+1998-01-05  23.5  33.4  27.7      74  3.5
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{prapemrosesan}{%
+\subsubsection{Prapemrosesan}\label{prapemrosesan}}
+
+Dilanjutkan dengan tahap prapemrosesan seperti memeriksa data invalid
+ataupun kehilangan data.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{29}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA DATA YANG HILANG PADA [df\PYZus{}klimatologi\PYZus{}clean]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: [df\PYZus{}klimatologi\PYZus{}clean] memiliki kehilangan data: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{hk73.\PYZus{}have\PYZus{}nan(df\PYZus{}klimatologi\PYZus{}clean)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: Kolom yang memiliki data hilang: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{hk73.\PYZus{}get\PYZus{}nan\PYZus{}columns(df\PYZus{}klimatologi\PYZus{}clean)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA DATA YANG HILANG PADA [df\_klimatologi\_clean]
+:: [df\_klimatologi\_clean] memiliki kehilangan data: True
+:: Kolom yang memiliki data hilang: ['ss']
+    \end{Verbatim}
+
+    Diketahui bahwa pada kolom \texttt{ss} terdapat kehilangan data
+``\texttt{NaN}''. Cek apakah kehilangan data terjadi secara beruntun.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{30}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA KONDISI DATA HILANG PADA [df\PYZus{}klimatologi\PYZus{}clean].ss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{\PYZus{}klimatologi\PYZus{}nan} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}get\PYZus{}nan}\PY{p}{(}\PY{n}{df\PYZus{}klimatologi\PYZus{}clean}\PY{p}{)}
+\PY{n}{\PYZus{}missing\PYZus{}ss} \PY{o}{=} \PY{n}{\PYZus{}klimatologi\PYZus{}nan}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{n}{\PYZus{}missing\PYZus{}ss\PYZus{}as\PYZus{}list} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}group\PYZus{}as\PYZus{}list}\PY{p}{(}\PY{n}{\PYZus{}missing\PYZus{}ss}\PY{p}{)}
+\PY{n}{\PYZus{}missing\PYZus{}ss\PYZus{}as\PYZus{}index} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}group\PYZus{}as\PYZus{}index}\PY{p}{(}
+    \PY{n}{\PYZus{}missing\PYZus{}ss\PYZus{}as\PYZus{}list}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{n}{df\PYZus{}klimatologi\PYZus{}clean}\PY{o}{.}\PY{n}{index}\PY{p}{,} 
+    \PY{n}{date\PYZus{}format}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{b }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: Tanggal terjadinya kehilangan data: }\PY{l+s+si}{\PYZob{}\PYZus{}missing\PYZus{}ss\PYZus{}as\PYZus{}index\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA KONDISI DATA HILANG PADA [df\_klimatologi\_clean].ss
+:: Tanggal terjadinya kehilangan data: ['30 Apr 2003']
+    \end{Verbatim}
+
+    Karena kehilangan data hanya terjadi pada satu hari, maka kolom
+\texttt{ss} akan digunakan dalam pemodelan.
+
+    Berdasarkan situs BMKG, harus diperiksa juga mengenai nilai
+\texttt{8888} dan \texttt{9999} yang menandakan bahwa data tidak terukur
+dan/atau tidak ada data. Data tersebut akan dikoreksi menjadi nilai
+hilang (\texttt{NaN}) dan akan diisi menggunakan metode interpolasi.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{31}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA DATA YANG TIDAK ADA/TEREKAM PADA [df\PYZus{}klimatologi\PYZus{}clean]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{\PYZus{}klimatologi\PYZus{}ungauged} \PY{o}{=} \PY{n}{hk73}\PY{o}{.}\PY{n}{\PYZus{}get\PYZus{}missing}\PY{p}{(}\PY{n}{df\PYZus{}klimatologi\PYZus{}clean}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{\PYZus{}klimatologi\PYZus{}ungauged}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA DATA YANG TIDAK ADA/TEREKAM PADA [df\_klimatologi\_clean]
+\{'Tn': array([], dtype=int64), 'Tx': array([], dtype=int64), 'Tavg': array([],
+dtype=int64), 'RH\_avg': array([], dtype=int64), 'ss': array([], dtype=int64)\}
+    \end{Verbatim}
+
+    Ternyata, pada kolom lain tidak memiliki nilai yang tidak terukur/tidak
+ada. Sehingga, langkah berikutnya mengisi nilai hilang menggunakan
+metode interpolasi linear.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{32}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGISI NILAI YANG HILANG MENGGUNAKAN METODE INTERPOLASI LINEAR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{df\PYZus{}klimatologi\PYZus{}clean}\PY{o}{.}\PY{n}{interpolate}\PY{p}{(}\PY{n}{method}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linear}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGISI NILAI YANG HILANG MENGGUNAKAN METODE INTERPOLASI LINEAR
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{33}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA JIKA [df\PYZus{}klimatologi\PYZus{}clean] MASIH MEMILIKI NILAI YANG HILANG:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{end}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{df\PYZus{}klimatologi\PYZus{}clean.isnull().values.any()\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA JIKA [df\_klimatologi\_clean] MASIH MEMILIKI NILAI YANG HILANG: False
+    \end{Verbatim}
+
+    \hypertarget{penggabungan-dataset}{%
+\subsection{PENGGABUNGAN DATASET}\label{penggabungan-dataset}}
+
+Ketiga data yaitu data hujan, data klimatologi, dan data debit
+digabungkan dalam satu DataFrame untuk pemodelan. Data gabungan sudah
+dipastikan tidak memiliki nilai yang invalid atau data yang hilang.
+
+Berdasarkan prapemrosesan data debit, diketahui bahwa dua bulan pertama
+(Januari-Februari 1998) tidak memiliki data, maka dataset akan
+menggunakan periode yang dimulai dari 1 Maret 1998.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{34}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENENTUKAN PERIODE DATASET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n}{\PYZus{}DATASET\PYZus{}FROM} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{19980301}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{\PYZus{}DATASET\PYZus{}TO} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20081231}\PY{l+s+s1}{\PYZsq{}}
+\PY{n}{\PYZus{}slicedate\PYZus{}dataset} \PY{o}{=} \PY{n+nb}{slice}\PY{p}{(}\PY{n}{\PYZus{}DATASET\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}DATASET\PYZus{}TO}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: PERIODE DATASET DARI }\PY{l+s+si}{\PYZob{}\PYZus{}DATASET\PYZus{}FROM\PYZcb{}}\PY{l+s+s1}{ hingga }\PY{l+s+si}{\PYZob{}\PYZus{}DATASET\PYZus{}TO\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DataFrame [data\PYZus{}hujan], [data\PYZus{}debit], [data\PYZus{}klimatologi]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{data\PYZus{}hujan} \PY{o}{=} \PY{n}{df\PYZus{}hujan}\PY{p}{[}\PY{n}{\PYZus{}slicedate\PYZus{}dataset}\PY{p}{]}
+\PY{n}{data\PYZus{}debit} \PY{o}{=} \PY{n}{df\PYZus{}debit}\PY{p}{[}\PY{n}{\PYZus{}slicedate\PYZus{}dataset}\PY{p}{]}
+\PY{n}{data\PYZus{}klimatologi} \PY{o}{=} \PY{n}{df\PYZus{}klimatologi\PYZus{}clean}\PY{p}{[}\PY{n}{\PYZus{}slicedate\PYZus{}dataset}\PY{p}{]}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENENTUKAN PERIODE DATASET
+:: PERIODE DATASET DARI 19980301 hingga 20081231
+:: DataFrame [data\_hujan], [data\_debit], [data\_klimatologi]
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{35}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGGABUNGKAN SELURUH DATA DALAM SATU DATAFRAME [dataset]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{dataset} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{data\PYZus{}hujan}\PY{p}{,} \PY{n}{data\PYZus{}klimatologi}\PY{p}{,} \PY{n}{data\PYZus{}debit}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGGABUNGKAN SELURUH DATA DALAM SATU DATAFRAME [dataset]
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{36}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title Menamai ulang kolom}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMAI ULANG NAMA KOLOM}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{COLUMNS\PYZus{}NAME} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ch\PYZus{}A ch\PYZus{}B ch\PYZus{}C ch\PYZus{}D ch\PYZus{}E ch\PYZus{}F ch\PYZus{}G ch\PYZus{}H suhu\PYZus{}min suhu\PYZus{}max suhu\PYZus{}rerata lembab\PYZus{}rerata lama\PYZus{}penyinaran debit}\PY{l+s+s1}{\PYZsq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}string\PYZdq{}\PYZcb{}}
+\PY{n}{dataset}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{COLUMNS\PYZus{}NAME}\PY{o}{.}\PY{n}{split}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: INFO [dataset]:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{dataset}\PY{o}{.}\PY{n}{info}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENAMAI ULANG NAMA KOLOM
+:: INFO [dataset]:
+<class 'pandas.core.frame.DataFrame'>
+DatetimeIndex: 3959 entries, 1998-03-01 to 2008-12-31
+Freq: D
+Data columns (total 14 columns):
+ch\_A               3959 non-null float64
+ch\_B               3959 non-null float64
+ch\_C               3959 non-null float64
+ch\_D               3959 non-null float64
+ch\_E               3959 non-null float64
+ch\_F               3959 non-null float64
+ch\_G               3959 non-null float64
+ch\_H               3959 non-null float64
+suhu\_min           3959 non-null float64
+suhu\_max           3959 non-null float64
+suhu\_rerata        3959 non-null float64
+lembab\_rerata      3959 non-null int64
+lama\_penyinaran    3959 non-null float64
+debit              3959 non-null float64
+dtypes: float64(13), int64(1)
+memory usage: 623.9 KB
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{37}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: STATISTIK DESKRIPTIF [dataset]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{dataset}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{T}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{25}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{75}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: STATISTIK DESKRIPTIF [dataset]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{37}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                      mean         std   min    50\%      max
+ch\_A              6.222417   12.044965   0.0   0.00   180.00
+ch\_B              6.087017   12.304554   0.0   0.00    99.50
+ch\_C              6.249937   13.616252   0.0   0.00   135.00
+ch\_D              6.949987   14.510073   0.0   0.00   140.00
+ch\_E              5.732609   13.728183   0.0   0.00   133.00
+ch\_F              5.316241   13.329691   0.0   0.00   163.00
+ch\_G              7.955418   17.472431   0.0   0.00   275.00
+ch\_H              8.469437   14.768919   0.0   0.00   148.00
+suhu\_min         23.139227    1.026656  17.4  23.20    26.00
+suhu\_max         31.826421    1.376400  25.6  32.00    36.20
+suhu\_rerata      26.734731    0.844836  23.5  26.80    30.10
+lembab\_rerata    81.678707    5.295782  59.0  82.00    97.00
+lama\_penyinaran   4.840162    2.721498   0.0   5.20     8.00
+debit            72.137286  105.077023   0.0  24.08  2561.58
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{visualisasi}{%
+\subsubsection{Visualisasi}\label{visualisasi}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{38}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+\PY{n}{g} \PY{o}{=} \PY{n}{sns}\PY{o}{.}\PY{n}{pairplot}\PY{p}{(}\PY{n}{dataset}\PY{p}{)}
+\PY{n}{g}\PY{o}{.}\PY{n}{fig}\PY{o}{.}\PY{n}{set\PYZus{}size\PYZus{}inches}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github_taruma_demo_lstm_rr_files/github_taruma_demo_lstm_rr_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{39}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{hidrokit}\PY{n+nn}{.}\PY{n+nn}{viz} \PY{k}{import} \PY{n}{graph}
+\PY{n}{graph}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{n}{dataset}\PY{p}{,} \PY{n}{ncols}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{nrows}\PY{o}{=}\PY{l+m+mi}{14}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,} \PY{l+m+mi}{15}\PY{p}{)}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github_taruma_demo_lstm_rr_files/github_taruma_demo_lstm_rr_68_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Dari grafik diatas dapat beberapa informasi baru yang diperoleh berupa:
+
+\begin{itemize}
+\tightlist
+\item
+  Terlihat nilai luaran \emph{outlier} pada kolom debit yang terjadi di
+  sekitar tahun 2001.
+\item
+  Untuk data hujan, hanya pada stasiun G yang memiliki rentang nilai
+  dari 0-200, sedangkan yang lain bernilai 0-100.
+\end{itemize}
+
+Nilai luaran akan disertakan dalam pemodelan. Dan pada akhir tahap ini,
+diasumsikan bahwa dataset sudah terverifikasi dan tervalidasi disertai
+selesai melewati prapemrosesan data. Sehingga, pada tahap berikutnya,
+dataset akan dianggap sudah memenuhi kriteria untuk pemodelan.
+
+    \hypertarget{tahap-3-input-pemodelan}{%
+\section{TAHAP 3: INPUT PEMODELAN}\label{tahap-3-input-pemodelan}}
+
+Pada tahap ini akan fokus dalam persiapan input pemodelan. Langkah yang
+akan dilakukan antara lain:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Membagi dataset menjadi dua bagian yaitu \emph{train set} dan
+  \emph{test set}.
+\item
+  Normalisasi/Standarisasi nilai pada dataset.
+\item
+  Mempersiapkan \emph{input tensor} untuk masing-masing \emph{train set}
+  dan \emph{test set}.
+\end{enumerate}
+
+    \hypertarget{menentukan-train-set-dan-test-set}{%
+\subsection{\texorpdfstring{Menentukan \emph{train set} dan \emph{test
+set}}{Menentukan train set dan test set}}\label{menentukan-train-set-dan-test-set}}
+
+Sudah direncanakan bahwa untuk \emph{train set} menggunakan periode
+selama 8 tahun sedangkan \emph{test set} selama 2 tahun. Sehingga
+diperoleh pembagian sebagai berikut:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{train\_set}, dari 1 Maret 1998 hingga 31 Desember 2006
+  (\textasciitilde{}8 tahun / 3228 hari).
+\item
+  \texttt{test\_set}, dari 1 Januari 2007 hingga 31 Desember 2008 (2
+  tahun / 731 hari).
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{40}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title Menentukan `train\PYZus{}set` dan `test\PYZus{}set`}
+
+\PY{k}{def} \PY{n+nf}{\PYZus{}TO\PYZus{}NONE}\PY{p}{(}\PY{n}{text}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n}{text}\PY{o}{.}\PY{n}{lower}\PY{p}{(}\PY{p}{)} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}
+        \PY{k}{return} \PY{k+kc}{None}
+    \PY{k}{else}\PY{p}{:}
+        \PY{k}{return} \PY{n}{text}
+
+\PY{c+c1}{\PYZsh{}@markdown \PYZsh{}\PYZsh{}\PYZsh{} `train\PYZus{}set`}
+
+\PY{n}{\PYZus{}TRAIN\PYZus{}FROM} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{None}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type: \PYZdq{}string\PYZdq{}\PYZcb{}}
+\PY{n}{\PYZus{}TRAIN\PYZus{}TO} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20061231}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type: \PYZdq{}string\PYZdq{}\PYZcb{}}
+
+\PY{c+c1}{\PYZsh{}@markdown \PYZsh{}\PYZsh{}\PYZsh{} `test\PYZus{}set`}
+\PY{n}{\PYZus{}TEST\PYZus{}FROM} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{20070101}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type: \PYZdq{}string\PYZdq{}\PYZcb{}}
+\PY{n}{\PYZus{}TEST\PYZus{}TO} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{None}\PY{l+s+s2}{\PYZdq{}} \PY{c+c1}{\PYZsh{}@param \PYZob{}type: \PYZdq{}string\PYZdq{}\PYZcb{}}
+
+\PY{n}{\PYZus{}TRAIN\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}TRAIN\PYZus{}TO} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{n}{\PYZus{}TO\PYZus{}NONE}\PY{p}{,} \PY{p}{[}\PY{n}{\PYZus{}TRAIN\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}TRAIN\PYZus{}TO}\PY{p}{]}\PY{p}{)}
+\PY{n}{\PYZus{}TEST\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}TEST\PYZus{}TO} \PY{o}{=} \PY{n+nb}{map}\PY{p}{(}\PY{n}{\PYZus{}TO\PYZus{}NONE}\PY{p}{,} \PY{p}{[}\PY{n}{\PYZus{}TEST\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}TEST\PYZus{}TO}\PY{p}{]}\PY{p}{)}
+
+\PY{n}{\PYZus{}SLICE\PYZus{}TRAIN} \PY{o}{=} \PY{n+nb}{slice}\PY{p}{(}\PY{n}{\PYZus{}TRAIN\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}TRAIN\PYZus{}TO}\PY{p}{)}
+\PY{n}{\PYZus{}SLICE\PYZus{}TEST} \PY{o}{=} \PY{n+nb}{slice}\PY{p}{(}\PY{n}{\PYZus{}TEST\PYZus{}FROM}\PY{p}{,} \PY{n}{\PYZus{}TEST\PYZus{}TO}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: Pemotongan Train set dari}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{str(\PYZus{}TRAIN\PYZus{}FROM):8s\PYZcb{} sampai }\PY{l+s+si}{\PYZob{}\PYZus{}TRAIN\PYZus{}TO:8s\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: Pemotongan Test set dari}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZob{}\PYZus{}TEST\PYZus{}FROM:8s\PYZcb{}}\PY{l+s+s1}{ sampai }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{str(\PYZus{}TEST\PYZus{}TO):8s\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: Pemotongan Train set dari    : None     sampai 20061231
+:: Pemotongan Test set dari     : 20070101 sampai None
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{41}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI TRAIN SET DAN TEST SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{train\PYZus{}set} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{\PYZus{}SLICE\PYZus{}TRAIN}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}set} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{\PYZus{}SLICE\PYZus{}TEST}\PY{p}{]}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [train\PYZus{}set]: }\PY{l+s+si}{\PYZob{}train\PYZus{}set.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [test\PYZus{}set]: }\PY{l+s+si}{\PYZob{}test\PYZus{}set.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: DIMENSI TRAIN SET DAN TEST SET
+:: DIMENSI [train\_set]: (3228, 14)
+:: DIMENSI [test\_set]: (731, 14)
+    \end{Verbatim}
+
+    \hypertarget{normalisasi-dataset}{%
+\subsection{Normalisasi dataset}\label{normalisasi-dataset}}
+
+Agar pelatihan berlangsung secara efisien, maka seluruh dataset (input
+dan output) dinormalisasikan dengan cara mengurangi dengan nilai rerata
+dan dibagi oleh standard deviasi (LeCun et al., 2012; Minns and Hall,
+1996) sebagaimana disebutkan pada makalah Kratzert et al. (2018).
+
+Normalisasi menggunakan scikit-learn \texttt{StandardScaler}
+(\href{https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html}{referensi}).
+Parameter objek \texttt{StandardScaler} hanya mengacu pada
+\texttt{train\_set}.
+
+    \hypertarget{train-set}{%
+\subsubsection{Train set}\label{train-set}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{42}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+\PY{n}{sc} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: NORMALISASI DATAFRAME [train\PYZus{}set] MENJADI [train\PYZus{}set\PYZus{}scale]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{train\PYZus{}set\PYZus{}scale} \PY{o}{=} \PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n}{train\PYZus{}set\PYZus{}scale}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{train\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: NORMALISASI DATAFRAME [train\_set] MENJADI [train\_set\_scale]
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{43}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN SAMPLE DATASET [train\PYZus{}set\PYZus{}scale]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{train\PYZus{}set\PYZus{}scale}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENAMPILKAN SAMPLE DATASET [train\_set\_scale]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{43}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                ch\_F  suhu\_rerata      ch\_G      ch\_A      ch\_C
+2004-12-20  0.135552     0.652575  0.114218  1.130425 -0.467389
+1999-12-17  3.800097    -2.585187  0.490628 -0.472120  1.307047
+1998-09-13 -0.410231     0.883843 -0.477285 -0.225575 -0.467389
+1999-12-10 -0.176324     0.305672 -0.047101 -0.061211  0.952160
+2003-03-31 -0.410231     0.999478 -0.477285 -0.472120 -0.467389
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{test-set}{%
+\subsubsection{Test set}\label{test-set}}
+
+Normalisasi pada \emph{test set} menggunakan parameter dari \emph{train
+set}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{44}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: NORMALISASI DATAFRAME [test\PYZus{}set] MENJADI [test\PYZus{}set\PYZus{}scale]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{test\PYZus{}set\PYZus{}scale} \PY{o}{=} \PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+\PY{n}{test\PYZus{}set\PYZus{}scale}\PY{p}{[}\PY{p}{:}\PY{p}{]} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{transform}\PY{p}{(}\PY{n}{test\PYZus{}set}\PY{p}{[}\PY{p}{:}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: NORMALISASI DATAFRAME [test\_set] MENJADI [test\_set\_scale]
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{45}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN SAMPLE DATASET [test\PYZus{}set\PYZus{}scale]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{test\PYZus{}set\PYZus{}scale}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENAMPILKAN SAMPLE DATASET [test\_set\_scale]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{45}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+                ch\_B      ch\_F     debit      ch\_C  suhu\_max
+2007-07-12 -0.476333 -0.410231 -0.539789 -0.467389 -0.748948
+2008-06-08 -0.476333 -0.410231 -0.529627 -0.467389 -0.028437
+2008-05-19 -0.081408  0.837274 -0.516454 -0.467389  0.547973
+2008-08-25 -0.476333  0.759305 -0.167470  1.803890 -0.172539
+2008-05-06 -0.476333  1.071181 -0.458494  1.023137  0.115666
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \hypertarget{input-tensor}{%
+\subsection{INPUT TENSOR}\label{input-tensor}}
+
+Setelah melakukan proses normalisasi, maka \texttt{train\_set} harus
+ditransformasi ke dalam bentuk tensor 3 dimensi. Dalam pemodelan RNN
+dimensi input berupa tensor 3 dimensi sebagai
+\texttt{(batch\_size,\ timesteps,\ input\_dim)}
+(\href{https://keras.io/layers/recurrent/}{referensi}).
+
+Berdasarkan Kratzert et al. (2018), \textbf{\emph{timesteps} yang
+digunakan sebesar \texttt{TIMESTEPS=365} hari}. Nilai tersebut digunakan
+untuk dapat menangkap setidaknya siklus tahunan. Pada buku ini juga akan
+menggunakan nilai yang sama.
+
+Proses transformasi ini akan menggunakan modul
+\texttt{hidrokit.contrib.taruma.hk53}
+(\href{https://nbviewer.jupyter.org/gist/taruma/50460ebfaab5a30c41e7f1a1ac0853e2}{panduan}).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{46}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title Menentukan `TIMESTEPS`}
+
+\PY{c+c1}{\PYZsh{}@markdown Satuan `TIMESTEPS` adalah hari.}
+
+\PY{n}{TIMESTEPS} \PY{o}{=} \PY{l+m+mi}{365} \PY{c+c1}{\PYZsh{}@param \PYZob{}type:\PYZdq{}integer\PYZdq{}\PYZcb{}}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENENTUKAN [TIMESTEPS]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: [TIMESTEPS] = }\PY{l+s+si}{\PYZob{}TIMESTEPS\PYZcb{}}\PY{l+s+s1}{ hari}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENENTUKAN [TIMESTEPS]
+:: [TIMESTEPS] = 365 hari
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{47}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENENTUKAN INPUT COLUMNS DAN OUTPUT COLUMNS}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{feature\PYZus{}columns} \PY{o}{=} \PY{n}{dataset}\PY{o}{.}\PY{n}{columns}\PY{o}{.}\PY{n}{to\PYZus{}list}\PY{p}{(}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+\PY{n}{output\PYZus{}columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{debit}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: INPUT COLUMNS = }\PY{l+s+si}{\PYZob{}feature\PYZus{}columns\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: OUTPUT COLUMNS = }\PY{l+s+si}{\PYZob{}output\PYZus{}columns\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENENTUKAN INPUT COLUMNS DAN OUTPUT COLUMNS
+:: INPUT COLUMNS = ['ch\_A', 'ch\_B', 'ch\_C', 'ch\_D', 'ch\_E', 'ch\_F', 'ch\_G',
+'ch\_H', 'suhu\_min', 'suhu\_max', 'suhu\_rerata', 'lembab\_rerata',
+'lama\_penyinaran']
+:: OUTPUT COLUMNS = ['debit']
+    \end{Verbatim}
+
+    \hypertarget{train-set}{%
+\subsubsection{Train Set}\label{train-set}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{48}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{from} \PY{n+nn}{hidrokit}\PY{n+nn}{.}\PY{n+nn}{contrib}\PY{n+nn}{.}\PY{n+nn}{taruma} \PY{k}{import} \PY{n}{hk53}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: TRANSFORMASI TRAIN SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [train\PYZus{}set\PYZus{}scale] = }\PY{l+s+si}{\PYZob{}train\PYZus{}set\PYZus{}scale.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: TRANSFORMASI [train\PYZus{}set\PYZus{}scale] MENJADI [X\PYZus{}train] DAN [y\PYZus{}train]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train} \PY{o}{=} \PY{n}{hk53}\PY{o}{.}\PY{n}{tensor\PYZus{}array}\PY{p}{(}
+    \PY{n}{train\PYZus{}set\PYZus{}scale}\PY{p}{,} \PY{n}{X\PYZus{}columns}\PY{o}{=}\PY{n}{feature\PYZus{}columns}\PY{p}{,} 
+    \PY{n}{timesteps}\PY{o}{=}\PY{n}{TIMESTEPS}\PY{p}{,} \PY{n}{y\PYZus{}out}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{y\PYZus{}columns}\PY{o}{=}\PY{n}{output\PYZus{}columns}
+\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [X\PYZus{}train] = }\PY{l+s+si}{\PYZob{}X\PYZus{}train.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [y\PYZus{}train] = }\PY{l+s+si}{\PYZob{}y\PYZus{}train.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: TRANSFORMASI TRAIN SET
+:: DIMENSI [train\_set\_scale] = (3228, 14)
+:: TRANSFORMASI [train\_set\_scale] MENJADI [X\_train] DAN [y\_train]
+:: DIMENSI [X\_train] = (2863, 365, 13)
+:: DIMENSI [y\_train] = (2863,)
+    \end{Verbatim}
+
+    \hypertarget{test-set}{%
+\subsubsection{Test Set}\label{test-set}}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{49}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: TRANSFORMASI TEST SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [test\PYZus{}set\PYZus{}scale] = }\PY{l+s+si}{\PYZob{}test\PYZus{}set\PYZus{}scale.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: TRANSFORMASI [test\PYZus{}set\PYZus{}scale] MENJADI [X\PYZus{}test] DAN [y\PYZus{}test]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{X\PYZus{}test}\PY{p}{,} \PY{n}{y\PYZus{}test} \PY{o}{=} \PY{n}{hk53}\PY{o}{.}\PY{n}{tensor\PYZus{}array}\PY{p}{(}
+    \PY{n}{test\PYZus{}set\PYZus{}scale}\PY{p}{,} \PY{n}{X\PYZus{}columns}\PY{o}{=}\PY{n}{feature\PYZus{}columns}\PY{p}{,}
+    \PY{n}{timesteps}\PY{o}{=}\PY{n}{TIMESTEPS}\PY{p}{,} \PY{n}{y\PYZus{}out}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{y\PYZus{}columns}\PY{o}{=}\PY{n}{output\PYZus{}columns}
+\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [X\PYZus{}test] = }\PY{l+s+si}{\PYZob{}X\PYZus{}test.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DIMENSI [y\PYZus{}test] = }\PY{l+s+si}{\PYZob{}y\PYZus{}test.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: TRANSFORMASI TEST SET
+:: DIMENSI [test\_set\_scale] = (731, 14)
+:: TRANSFORMASI [test\_set\_scale] MENJADI [X\_test] DAN [y\_test]
+:: DIMENSI [X\_test] = (366, 365, 13)
+:: DIMENSI [y\_test] = (366,)
+    \end{Verbatim}
+
+    \hypertarget{tahap-4-melatih-model}{%
+\section{TAHAP 4: MELATIH MODEL}\label{tahap-4-melatih-model}}
+
+Pada tahap ini, akan mempersiapkan arsitektur RNN/LSTM disertai
+melakukan pelatihan (\emph{training}) model.
+
+Demi mempersingkat buku, parameter yang digunakan adalah \textbf{dua
+layer dan 20 sel} dengan setiap layer diberi \emph{Dropout} layer dengan
+probabilitas 10\% (meniru makalah Kratzert et al. (2018)).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{50}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: IMPORT TENSORFLOW.KERAS LIBRARY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{models} \PY{k}{import} \PY{n}{Sequential}
+\PY{k+kn}{from} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{layers} \PY{k}{import} \PY{n}{Dense}\PY{p}{,} \PY{n}{LSTM}\PY{p}{,} \PY{n}{Dropout}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: IMPORT TENSORFLOW.KERAS LIBRARY
+    \end{Verbatim}
+
+    Dalam bidang hidrologi, kasus curah hujan-limpasan dapat dievaluasi
+dengan berbagai metrik, metrik yang biasa digunakan adalah
+Nash-Sutcliffe Efficiency
+(\href{https://en.wikipedia.org/wiki/Nash–Sutcliffe_model_efficiency_coefficient}{referensi}).
+Karena evaluasi metrik ingin dilakukan setiap epoch, maka dari itu
+dibuat fungsi khusus agar disertakan saat \texttt{compile} model.
+
+Untuk evaluasi metrik sebenarnya sudah tersedia paket
+\href{https://github.com/BYU-Hydroinformatics/HydroErr}{HydroErr} yang
+dibuat oleh BYU Hydroinformatics (tersedia juga paket
+\href{https://github.com/BYU-Hydroinformatics/Hydrostats}{HydroStats}
+untuk menelaah data hidrologi). Karena objek yang diterima pada metrik
+\texttt{keras} harus berupa \texttt{tensorflow} harus dibuat fungsi
+khusus tersendiri.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{51}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{tensorflow}\PY{n+nn}{.}\PY{n+nn}{keras}\PY{n+nn}{.}\PY{n+nn}{backend} \PY{k}{as} \PY{n+nn}{K}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMBUAT FUNGSI KHUSUS METRIK (NSE, NSE\PYZus{}MOD, R\PYZus{}SQUARED)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{nse}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} ref: https://hydroerr.readthedocs.io/en/stable/api/HydroErr.HydroErr.nse.html}
+    \PY{n}{S}\PY{p}{,} \PY{n}{O} \PY{o}{=} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}true}
+    \PY{n}{O\PYZus{}mean} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{O}\PY{p}{)}
+    \PY{n}{top} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{S}\PY{o}{\PYZhy{}}\PY{n}{O}\PY{p}{)}\PY{p}{)}
+    \PY{n}{bot} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{O}\PY{o}{\PYZhy{}}\PY{n}{O\PYZus{}mean}\PY{p}{)}\PY{p}{)}
+    \PY{n}{NSE} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{top} \PY{o}{/} \PY{n}{bot}\PY{p}{)}
+    \PY{k}{return} \PY{n}{NSE}
+
+\PY{k}{def} \PY{n+nf}{nse\PYZus{}mod}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{j}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} ref: https://hydroerr.readthedocs.io/en/stable/api/HydroErr.HydroErr.nse\PYZus{}mod.html}
+    \PY{n}{S}\PY{p}{,} \PY{n}{O} \PY{o}{=} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}true}
+    \PY{n}{O\PYZus{}mean} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{O}\PY{p}{)}
+    \PY{n}{abs\PYZus{}top} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{S}\PY{o}{\PYZhy{}}\PY{n}{O}\PY{p}{)}
+    \PY{n}{abs\PYZus{}bot} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{abs}\PY{p}{(}\PY{n}{O}\PY{o}{\PYZhy{}}\PY{n}{O\PYZus{}mean}\PY{p}{)}
+    \PY{n}{top} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{n}{abs\PYZus{}top}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}
+    \PY{n}{bot} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{pow}\PY{p}{(}\PY{n}{abs\PYZus{}bot}\PY{p}{,} \PY{n}{j}\PY{p}{)}\PY{p}{)}
+    \PY{n}{NSE\PYZus{}mod} \PY{o}{=} \PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{top} \PY{o}{/} \PY{n}{bot}\PY{p}{)}
+    \PY{k}{return} \PY{n}{NSE\PYZus{}mod}
+
+\PY{k}{def} \PY{n+nf}{r\PYZus{}squared}\PY{p}{(}\PY{n}{y\PYZus{}true}\PY{p}{,} \PY{n}{y\PYZus{}pred}\PY{p}{)}\PY{p}{:}
+    \PY{c+c1}{\PYZsh{} ref: https://hydroerr.readthedocs.io/en/stable/api/HydroErr.HydroErr.r\PYZus{}squared.html}
+    \PY{n}{S}\PY{p}{,} \PY{n}{O} \PY{o}{=} \PY{n}{y\PYZus{}pred}\PY{p}{,} \PY{n}{y\PYZus{}true}
+    \PY{n}{O\PYZus{}mean} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{O}\PY{p}{)}
+    \PY{n}{S\PYZus{}mean} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{S}\PY{p}{)}
+
+    \PY{n}{\PYZus{}top} \PY{o}{=} \PY{p}{(}\PY{n}{O}\PY{o}{\PYZhy{}}\PY{n}{O\PYZus{}mean}\PY{p}{)} \PY{o}{*} \PY{p}{(}\PY{n}{S}\PY{o}{\PYZhy{}}\PY{n}{S\PYZus{}mean}\PY{p}{)}
+    \PY{n}{top} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{\PYZus{}top}\PY{p}{)}\PY{p}{)}
+
+    \PY{n}{bot} \PY{o}{=} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{O}\PY{o}{\PYZhy{}}\PY{n}{O\PYZus{}mean}\PY{p}{)}\PY{p}{)} \PY{o}{*} \PY{n}{K}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{K}\PY{o}{.}\PY{n}{square}\PY{p}{(}\PY{n}{S}\PY{o}{\PYZhy{}}\PY{n}{S\PYZus{}mean}\PY{p}{)}\PY{p}{)}
+
+    \PY{n}{R\PYZus{}squared} \PY{o}{=} \PY{n}{top} \PY{o}{/} \PY{n}{bot}
+    \PY{k}{return} \PY{n}{R\PYZus{}squared}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMBUAT FUNGSI KHUSUS METRIK (NSE, NSE\_MOD, R\_SQUARED)
+    \end{Verbatim}
+
+    Pada evaluasi metrik, digunakan empat fungsi yaitu \emph{mean absolute
+error} \texttt{mae}, \emph{Nash--Sutcliffe Efficiency} \texttt{nse} ,
+\emph{Modified NSE} \texttt{nse\_mod}, \emph{Coefficient of
+Determination} \texttt{r\_squared}, dan \emph{mean squared error}
+\texttt{mse} sebagai \emph{loss function}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{52}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{build\PYZus{}model}\PY{p}{(}
+    \PY{n}{input\PYZus{}shape}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{adam}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{activation}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{sigmoid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{p}\PY{o}{=}\PY{l+m+mf}{0.1}\PY{p}{,}
+    \PY{n}{units}\PY{o}{=}\PY{l+m+mi}{20}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}
+\PY{p}{)}\PY{p}{:}
+    \PY{n}{model} \PY{o}{=} \PY{n}{Sequential}\PY{p}{(}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} FIRST LAYER}
+    \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{n}{units}\PY{p}{,} \PY{n}{return\PYZus{}sequences}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{n}{input\PYZus{}shape}\PY{p}{)}\PY{p}{)}
+    \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{n}{rate}\PY{o}{=}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} SECOND LAYER}
+    \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{LSTM}\PY{p}{(}\PY{n}{units}\PY{o}{=}\PY{n}{units}\PY{p}{,} \PY{n}{return\PYZus{}sequences}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+    \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dropout}\PY{p}{(}\PY{n}{rate}\PY{o}{=}\PY{n}{p}\PY{p}{)}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} OUTPUT LAYER}
+    \PY{n}{model}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{Dense}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+
+    \PY{c+c1}{\PYZsh{} COMPILE}
+    \PY{n}{model}\PY{o}{.}\PY{n}{compile}\PY{p}{(}\PY{n}{loss}\PY{o}{=}\PY{n}{loss}\PY{p}{,} \PY{n}{optimizer}\PY{o}{=}\PY{n}{optimizer}\PY{p}{,} \PY{n}{metrics}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{nse}\PY{p}{,} \PY{n}{nse\PYZus{}mod}\PY{p}{,} \PY{n}{r\PYZus{}squared}\PY{p}{]}\PY{p}{)}
+
+    \PY{k}{return} \PY{n}{model}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: PEMODELAN RNN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{model} \PY{o}{=} \PY{n}{build\PYZus{}model}\PY{p}{(}\PY{n}{input\PYZus{}shape}\PY{o}{=}\PY{p}{(}\PY{n}{TIMESTEPS}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: SUMMARY [model]:}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{model}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: PEMODELAN RNN
+:: SUMMARY [model]:
+Model: "sequential"
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+Layer (type)                 Output Shape              Param \#
+=================================================================
+lstm (LSTM)                  (None, 365, 20)           2720
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dropout (Dropout)            (None, 365, 20)           0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+lstm\_1 (LSTM)                (None, 20)                3280
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dropout\_1 (Dropout)          (None, 20)                0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+dense (Dense)                (None, 1)                 21
+=================================================================
+Total params: 6,021
+Trainable params: 6,021
+Non-trainable params: 0
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{53}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{\PYZus{}before\PYZus{}train\PYZus{}time} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{n}{timezone}\PY{p}{(}\PY{n}{timedelta}\PY{p}{(}\PY{n}{hours}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: TRAINING START: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{\PYZus{}before\PYZus{}train\PYZus{}time.strftime(}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: TRAINING START: 20191022 08:09
+    \end{Verbatim}
+
+    Pada buku ini hanya akan dilakukan sebanyak \texttt{epochs=50} dengan
+\texttt{batch\_size=30}.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{0}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{history} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{epochs}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{,} \PY{n}{batch\PYZus{}size}\PY{o}{=}\PY{l+m+mi}{30}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{55}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{\PYZus{}after\PYZus{}train\PYZus{}time} \PY{o}{=} \PY{n}{datetime}\PY{o}{.}\PY{n}{now}\PY{p}{(}\PY{n}{timezone}\PY{p}{(}\PY{n}{timedelta}\PY{p}{(}\PY{n}{hours}\PY{o}{=}\PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: TRAINING FINISH: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{\PYZus{}after\PYZus{}train\PYZus{}time.strftime(}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{Y}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{m}\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ }\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{H:}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{M}\PY{l+s+s1}{\PYZdq{}}\PY{l+s+s1}{)\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: TRAINING FINISH: 20191022 08:28
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{56}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MODEL SELESAI DILATIH}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{\PYZus{}duration\PYZus{}train\PYZus{}time} \PY{o}{=} \PY{n}{\PYZus{}after\PYZus{}train\PYZus{}time} \PY{o}{\PYZhy{}} \PY{n}{\PYZus{}before\PYZus{}train\PYZus{}time}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: DURASI: }\PY{l+s+si}{\PYZob{}\PYZus{}duration\PYZus{}train\PYZus{}time\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MODEL SELESAI DILATIH
+:: DURASI: 0:18:57.397631
+    \end{Verbatim}
+
+    \hypertarget{tahap-5-evaluasi-model}{%
+\section{Tahap 5: EVALUASI MODEL}\label{tahap-5-evaluasi-model}}
+
+Tahap ini akan membahas hasil pelatihan model. Langkah yang akan
+dilakukan antara lain:
+
+\begin{itemize}
+\tightlist
+\item
+  Mengevaluasi metrik yang telah tercatat dalam \texttt{history}.
+\item
+  Mengembalikan hasil normalisasi menjadi nilai sebenernya.
+\item
+  Mengevaluasi \emph{train set}
+\item
+  Mengevaluasi \emph{test set}
+\end{itemize}
+
+    \hypertarget{metrik}{%
+\subsection{Metrik}\label{metrik}}
+
+    Terdapat 5 metrik yang telah tercatat yaitu:
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{mean squared error} yang digunakan sebagai \emph{loss function}
+  \texttt{loss}: \(0 \leq MSE \leq \infty\), semakin kecil semakin baik.
+\item
+  \emph{mean absolute error} \texttt{mae}: \(0 \leq MAE \leq \infty\),
+  semakin kecil semakin baik.
+\item
+  \emph{Nash-Sutcliffe Efficiency} \texttt{nse}:
+  \(-\infty \leq NSE < 1\), semakin besar semakin baik.
+\item
+  \emph{Modified NSE} \texttt{nse\_mod}: \(-\infty \leq NSE\_MOD < 1\),
+  semakin besar semakin baik.
+\item
+  \emph{Coefficient of Determination} \texttt{r\_squared}:
+  \(0 \leq R^2 \leq 1\), dengan nilai 1 menandakan data berkorelasi
+  sempurna (data prediksi sama persis dengan data sebenarnya).
+\end{itemize}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{57}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENYIMPAN HISTORY METRIK DALAM BENTUK DATAFRAME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}metric} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{history}\PY{o}{.}\PY{n}{history}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: METRIK DISIMPAN DI [df\PYZus{}metric]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}metric}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN [df\PYZus{}metric]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}metric}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENYIMPAN HISTORY METRIK DALAM BENTUK DATAFRAME
+:: METRIK DISIMPAN DI [df\_metric]
+:: MENAMPILKAN [df\_metric]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{57}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+        mse       mae       nse   nse\_mod  r\_squared
+0  0.781758  0.484053  0.124985  0.132563   0.235792
+1  0.692471  0.448786  0.198317  0.193541   0.324584
+2  0.627708  0.432311  0.201291  0.203872   0.370504
+3  0.595955  0.428561  0.261062  0.219740   0.407329
+4  0.583112  0.417041  0.268653  0.238746   0.410968
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{58}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: GRAFIK METRIK}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}metric}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{METRIK PELATIHAN MODEL}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Epoch}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nilai}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: GRAFIK METRIK
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github_taruma_demo_lstm_rr_files/github_taruma_demo_lstm_rr_103_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Dapat dilihat pada grafik, pada setiap epochnya model masih terus
+membaik, sehingga dimungkinkan untuk melanjutkan pelatihan lebih dari 50
+epoch.
+
+    \hypertarget{object-standardscaler-untuk-kolom-debit}{%
+\subsection{\texorpdfstring{Object \texttt{StandardScaler} untuk kolom
+debit}{Object StandardScaler untuk kolom debit}}\label{object-standardscaler-untuk-kolom-debit}}
+
+Karena proses normalisasi data dilakukan sebelum pemisahan \emph{train
+set} dan \emph{test set}, maka harus dibuat objek
+\texttt{StandardScaler} baru yang mengambil atribut objek \texttt{sc}
+pada kolom debit (y\_train/y\_test).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{59}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: OBJEK StandardScaler UNTUK OUTPUT [y\PYZus{}train] DAN [y\PYZus{}test]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{sc\PYZus{}y} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}
+\PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{scale\PYZus{}}\PY{p}{,} \PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{mean\PYZus{}}\PY{p}{,} \PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{var\PYZus{}}\PY{p}{,} \PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{n\PYZus{}sample\PYZus{}seen\PYZus{}} \PY{o}{=} \PY{n}{sc}\PY{o}{.}\PY{n}{scale\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{sc}\PY{o}{.}\PY{n}{mean\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{sc}\PY{o}{.}\PY{n}{var\PYZus{}}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{sc}\PY{o}{.}\PY{n}{n\PYZus{}samples\PYZus{}seen\PYZus{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: OBJEK StandardScaler UNTUK OUTPUT [y\_train] DAN [y\_test]
+    \end{Verbatim}
+
+    \hypertarget{evaluasi-train-set}{%
+\subsection{\texorpdfstring{Evaluasi \emph{train
+set}}{Evaluasi train set}}\label{evaluasi-train-set}}
+
+Meski mengevaluasi train set sudah tersampaikan melalui metrik diatas,
+saya ingin melihat bagaimana model berhasil memprediksikan data train
+set setiap harinya.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENYIMPAN EVALUASI TRAIN SET [df\PYZus{}eval\PYZus{}train]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}train} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+    \PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+        \PY{n}{true}\PY{o}{=}\PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{)}\PY{p}{,}
+        \PY{n}{pred}\PY{o}{=}\PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}train}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+    \PY{p}{)}\PY{p}{,}
+    \PY{n}{index}\PY{o}{=}\PY{n}{train\PYZus{}set}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{TIMESTEPS}\PY{p}{:}\PY{p}{]}
+\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN [df\PYZus{}eval\PYZus{}train]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}train}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENYIMPAN EVALUASI TRAIN SET [df\_eval\_train]
+:: MENAMPILKAN [df\_eval\_train]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{60}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+              true        pred
+1999-03-01  376.00  334.103973
+1999-03-02  282.00  301.464172
+1999-03-03  188.00  151.581390
+1999-03-04   23.15   65.298645
+1999-03-05   23.15   54.322853
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{61}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: GRAFIK DEBIT ALIRAN MENGGUNAKAN TRAIN SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}train}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PREDIKSI DEBIT ALIRAN MENGGUNAKAN DATA TRAIN SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Debit \PYZdl{}m\PYZca{}3/s\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Waktu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: GRAFIK DEBIT ALIRAN MENGGUNAKAN TRAIN SET
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github_taruma_demo_lstm_rr_files/github_taruma_demo_lstm_rr_109_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Sejauh ini model mampu memprediksikannya dengan cukup memuaskan. Model
+mampu melihat kejadian peningkatan ataupun penurunan debit. Tentunya,
+mengevaluasi data \emph{train set} tidak begitu signifikan, dikarenakan
+model memang sudah dilatih berdasarkan data \emph{train set}, tidak aneh
+jika pemodelannya memuaskan.
+
+    \hypertarget{evaluasi-test-set}{%
+\subsection{\texorpdfstring{Evaluasi \emph{test
+set}}{Evaluasi test set}}\label{evaluasi-test-set}}
+
+Performa model dapat dievaluasi menggunakan data \emph{test set}, dimana
+data tersebut tidak terlihat sama sekali oleh model.
+
+Evaluasi dilakukan dengan mengukur 5 metrik yang dilakukan serupa pada
+saat pelatihan (mse, mae, nse, nse\_mod, dan r\_squared). Perhitungan
+metrik akan menggunakan paket HydroErr.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{62}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENYIMPAN EVALUASI TEST SET [df\PYZus{}eval\PYZus{}test]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}test} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+    \PY{n}{data}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}
+        \PY{n}{true}\PY{o}{=}\PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{,}
+        \PY{n}{pred}\PY{o}{=}\PY{n}{sc\PYZus{}y}\PY{o}{.}\PY{n}{inverse\PYZus{}transform}\PY{p}{(}\PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+    \PY{p}{)}\PY{p}{,}
+    \PY{n}{index}\PY{o}{=}\PY{n}{test\PYZus{}set}\PY{o}{.}\PY{n}{index}\PY{p}{[}\PY{n}{TIMESTEPS}\PY{p}{:}\PY{p}{]}
+\PY{p}{)}
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN [df\PYZus{}eval\PYZus{}test]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}test}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENYIMPAN EVALUASI TEST SET [df\_eval\_test]
+:: MENAMPILKAN [df\_eval\_test]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{62}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+              true        pred
+2008-01-01   76.03   50.311241
+2008-01-02  679.00   56.357487
+2008-01-03  632.00  189.934631
+2008-01-04  408.00  151.144196
+2008-01-05  465.00  209.659058
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{63}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: GRAFIK DEBIT ALIRAN MENGGUNAKAN TEST SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}test}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{PREDIKSI DEBIT ALIRAN MENGGUNAKAN TEST SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Debit \PYZdl{}m\PYZca{}3/s\PYZdl{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Waktu}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: GRAFIK DEBIT ALIRAN MENGGUNAKAN TEST SET
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{github_taruma_demo_lstm_rr_files/github_taruma_demo_lstm_rr_113_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    Hasil prediksi debit aliran menggunakan data \emph{test set} masih
+dibilang tidak tahu pasti bagus tidaknya berdasarkan visualisasi.
+Terlihat ada beberapa nilai yang meleset dari data observasi, akan
+tetapi model mampu memprediksikan kondisi kekeringan yang terjadi pada
+bulan juni hingga agustus.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{64}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{c+c1}{\PYZsh{}@title Periksa Paket HydroErr \PYZob{} display\PYZhy{}mode: \PYZdq{}form\PYZdq{}\PYZcb{}}
+\PY{c+c1}{\PYZsh{}@markdown Memeriksa paket hidrokit dan memasangnya jika diperlukan}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMERIKSA PAKET HYDROERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{if} \PY{n}{\PYZus{}IS\PYZus{}LOCALE}\PY{p}{:}
+    \PY{k}{try}\PY{p}{:}
+        \PY{k+kn}{import} \PY{n+nn}{HydroErr}
+    \PY{k}{except} \PY{n}{ModuleNotFoundError}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HydroErr tidak ditemukan}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{k}{else}\PY{p}{:}
+    \PY{k}{try}\PY{p}{:}
+        \PY{k+kn}{import} \PY{n+nn}{HydroErr}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: PAKET HYDROERR SUDAH TERPASANG}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+    \PY{k}{except} \PY{n}{ModuleNotFoundError}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: INSTALASI PAKET HYDROERR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{o}{!}pip install HydroErr \PYZhy{}q
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMERIKSA PAKET HYDROERR
+:: INSTALASI PAKET HYDROERR
+  Building wheel for HydroErr (setup.py) {\ldots} done
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{65}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k+kn}{import} \PY{n+nn}{HydroErr} \PY{k}{as} \PY{n+nn}{he}
+
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENGHITUNG METRIK DARI TEST SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{c+c1}{\PYZsh{} Menggunakan nilai yang telah dinormalisasikan}
+\PY{n}{\PYZus{}simulated} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}\PY{o}{.}\PY{n}{flatten}\PY{p}{(}\PY{p}{)}
+\PY{n}{\PYZus{}observed} \PY{o}{=} \PY{n}{y\PYZus{}test}
+
+\PY{n}{test\PYZus{}metric} \PY{o}{=} \PY{p}{\PYZob{}}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{he}\PY{o}{.}\PY{n}{mse}\PY{p}{(}\PY{n}{\PYZus{}simulated}\PY{p}{,} \PY{n}{\PYZus{}observed}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mae}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{he}\PY{o}{.}\PY{n}{mae}\PY{p}{(}\PY{n}{\PYZus{}simulated}\PY{p}{,} \PY{n}{\PYZus{}observed}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nse}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{he}\PY{o}{.}\PY{n}{nse}\PY{p}{(}\PY{n}{\PYZus{}simulated}\PY{p}{,} \PY{n}{\PYZus{}observed}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{nse\PYZus{}mod}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{he}\PY{o}{.}\PY{n}{nse\PYZus{}mod}\PY{p}{(}\PY{n}{\PYZus{}simulated}\PY{p}{,} \PY{n}{\PYZus{}observed}\PY{p}{)}\PY{p}{,}
+    \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZus{}squared}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{he}\PY{o}{.}\PY{n}{r\PYZus{}squared}\PY{p}{(}\PY{n}{\PYZus{}simulated}\PY{p}{,} \PY{n}{\PYZus{}observed}\PY{p}{)}
+\PY{p}{\PYZcb{}}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENGHITUNG METRIK DARI TEST SET
+    \end{Verbatim}
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{66}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MENAMPILKAN METRIK TEST SET [test\PYZus{}metric]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{test\PYZus{}metric} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{Series}\PY{p}{(}\PY{n}{test\PYZus{}metric}\PY{p}{)}
+\PY{n}{test\PYZus{}metric}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MENAMPILKAN METRIK TEST SET [test\_metric]
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{66}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+mse          0.725624
+mae          0.474683
+nse          0.228164
+nse\_mod      0.276037
+r\_squared    0.273061
+dtype: float64
+\end{Verbatim}
+\end{tcolorbox}
+        
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{67}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{:: MEMBANDINGKAN METRIK TRAIN SET DAN TEST SET}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}metric} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}
+    \PY{n}{data}\PY{o}{=}\PY{p}{[}\PY{n}{df\PYZus{}metric}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{n}{test\PYZus{}metric}\PY{p}{]}\PY{p}{,} \PY{n}{index}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{train}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{test}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\PY{p}{)}
+\PY{n}{df\PYZus{}eval\PYZus{}metric}\PY{o}{.}\PY{n}{T}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+:: MEMBANDINGKAN METRIK TRAIN SET DAN TEST SET
+    \end{Verbatim}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{67}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+              train      test
+mse        0.307810  0.725624
+mae        0.340651  0.474683
+nse        0.510170  0.228164
+nse\_mod    0.373428  0.276037
+r\_squared  0.586090  0.273061
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Berdasarkan hasil metrik diatas, prediksi dari data \emph{test set}
+tidak begitu bagus sehingga model bisa dibilang masih kurang dilatih.
+
+    \hypertarget{kesimpulan}{%
+\section{KESIMPULAN}\label{kesimpulan}}
+
+    Jika melihat dari hasil perhitungan metrik, prediksi yang dihasilkan
+oleh model tergolong tidak bagus, tidak ada salah satu parameter yang
+dianggap memuaskan. Akan tetapi, jika dilihat dari grafik antara debit
+dan waktu (hidrograf), model mampu memprediksikan fluktuasi debit
+(kondisi kekeringan).
+
+Dalam buku ini, hanya menampilkan bagaimana pemodelan menggunakan LSTM
+dilakukan saja. Masih banyak langkah yang dapat dilakukan untuk
+memperbaiki model sekarang seperti melakukan \emph{parameter tuning},
+\emph{model selection}, \emph{feature engineering}. Tentunya, data set
+yang digunakan harus diperiksa kembali karena dalam buku ini menggunakan
+asumsi sederhana bahwa data set sudah layak pakai.
+
+    \hypertarget{changelog}{%
+\section{Changelog}\label{changelog}}
+
+\begin{verbatim}
+- 20191022 - 1.0.0 - Initial
+\end{verbatim}
+
+\textbf{Copyright © 2019 \href{https://taruma.github.io}{Taruma Sakti
+Megariansyah}}
+
+Source code in this notebook is licensed
+\href{https://github.com/taruma/vivaldi/blob/master/LICENSE}{MIT
+License}. Data in this notebook is licensed
+\href{https://creativecommons.org/licenses/by/4.0/}{Creative Common
+Attribution 4.0 International}.
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}

@@ -1,0 +1,899 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+    \usepackage{iftex}
+    \ifPDFTeX
+    	\usepackage[T1]{fontenc}
+    	\usepackage{mathpazo}
+    \else
+    	\usepackage{fontspec}
+    \fi
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range
+    \makeatletter % fix for grffile with XeLaTeX
+    \def\Gread@@xetex#1{%
+      \IfFileExists{"\Gin@base".bb}%
+      {\Gread@eps{\Gin@base.bb}}%
+      {\Gread@@xetex@aux#1}%
+    }
+    \makeatother
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb. 
+    \makeatletter
+        \newbox\Wrappedcontinuationbox 
+        \newbox\Wrappedvisiblespacebox 
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}} 
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}} 
+        \newcommand*\Wrappedcontinuationindent {3ex } 
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox} 
+        % Take advantage of the already applied Pygments mark-up to insert 
+        % potential linebreaks for TeX processing. 
+        %        {, <, #, %, $, ' and ": go to next line. 
+        %        _, }, ^, &, >, - and ~: stay at end of broken line. 
+        % Use of \textquotesingle for straight quote. 
+        \newcommand*\Wrappedbreaksatspecials {% 
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}% 
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}% 
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}% 
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}% 
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}% 
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}% 
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}% 
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}% 
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}% 
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}% 
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}% 
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}% 
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}% 
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}% 
+        } 
+        % Some characters . , ; ? ! / are not pygmentized. 
+        % This macro makes them "active" and they will insert potential linebreaks 
+        \newcommand*\Wrappedbreaksatpunct {% 
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}% 
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}% 
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}% 
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}% 
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}% 
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}% 
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}% 
+            \catcode`\.\active
+            \catcode`\,\active 
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active 
+            \lccode`\~`\~ 	
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+        
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active 	
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+    
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        \ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+    % Document title
+    \title{Prediksi Debit Aliran Menggunakan \emph{Long Short-Term Memory} (LSTM)}
+    \author{Taruma Sakti Megariansyah}
+    \date{22 Oktober 2019}
+
+\begin{document}
+  
+%    \maketitle
+%	ref: https://stackoverflow.com/questions/3141702/vertically-centering-a-title-page
+	\begin{titlepage}
+		\vspace*{\fill}
+		\begin{center}
+ 		\normalsize Catatan Laporan\\
+		\huge Prediksi Debit Aliran menggunakan \emph{Long Short-Term Memory} (LSTM)\\ 
+		\normalsize Versi 1.0.0 \\[0.2cm]
+      	\small Berdasarkan \emph{Jupyter Notebook}: \texttt{github-taruma\_demo\_lstm\_rr\_catatan.ipynb} \\[0.5cm]
+		\normalsize oleh Taruma Sakti Megariansyah\\[0.5cm]
+      	\normalsize 22 Oktober 2019\\[1cm]
+    	\adjustimage{max size={0.9\linewidth}{1cm}}{vivaldi_logo.png}\\
+      	\normalsize github.com/taruma/vivaldi
+		\end{center}
+    	\vspace*{\fill}
+	\end{titlepage}
+    
+
+    
+    Dokumen ini merupakan catatan untuk laporan ``Prediksi Debit Aliran
+Menggunakan Metode \emph{Long Short-Term Memory} (LSTM)'' atau berkas
+\texttt{github-taruma\_demo\_lstm\_rr.ipynb}.
+
+    \hypertarget{info-dataset}{%
+\section{Info Dataset}\label{info-dataset}}
+
+Dataset beserta informasinya diperoleh dari skripsi saya sendiri
+berjudul ``Kajian Penerapan Model NRECA di Bendung Pamarayan'' pada
+tahun 2015. Data curah hujan dan debit diperoleh dari skripsi. Untuk
+data klimatologi, diunduh melalui Data Online BMKG yang diakses pada 2
+Oktober 2019, dikarenakan data dari stasiun terdekat tidak lengkap. Saya
+akan mengusahakan menyertakan segala informasi mengenai dataset yang
+perlu diketahui di dalam catatan ini.
+
+    \hypertarget{dataset}{%
+\subsection{Dataset}\label{dataset}}
+
+Dataset merupakan data hidrologi dan klimatologi \textbf{harian} dari
+tanggal \textbf{1 Maret 1998} sampai \textbf{31 Desember 2008} (3959
+hari). Dataset terpisah menjadi 3 kategori yaitu: data curah hujan, data
+klimatologi, dan data debit.
+
+\begin{itemize}
+\tightlist
+\item
+  Data curah hujan diperoleh dari 8 stasiun yaitu:
+  \texttt{bojong\_manik}, \texttt{gunung\_tunggal}, \texttt{pasir\_ona},
+  \texttt{sampang\_peundeuy}, \texttt{cimarga}, \texttt{bd\_pamarayan},
+  \texttt{ciminyak\_cilaki}, \texttt{gardu\_tanjak}.
+\item
+  Data debit diperoleh dari 1 stasiun yaitu: \texttt{bd\_pamarayan}.
+\item
+  Data klimatologi diperoleh dari 1 stasiun yaitu:
+  \texttt{geofisika\_serang}.
+\end{itemize}
+
+    \hypertarget{sumber-dataset}{%
+\subsection{Sumber Dataset}\label{sumber-dataset}}
+
+Berikut sumber dataset yang diperoleh (Megariansyah, 2015):
+
+\begin{itemize}
+\tightlist
+\item
+  Data Curah Hujan, 8 Stasiun: BBWS Cidanau-Ciujung-Cidurian
+\item
+  Data Debit, 1 Stasiun: BBWS Cidanau-Ciujung-Cidurian
+\item
+  Data Klimatologi, 1 Stasiun: Data Online BMKG
+\end{itemize}
+
+    \hypertarget{ringkasan-dataset}{%
+\subsection{Ringkasan Dataset}\label{ringkasan-dataset}}
+
+\begin{itemize}
+\tightlist
+\item
+  Data curah hujan merupakan data berkolom tunggal yang menunjukkan
+  besarnya curah hujan dalam satuan \(mm\) untuk masing-masing stasiun.
+\item
+  Data debit merupakan data berkolom tunggal yang menunjukkan besarnya
+  debit dalam satuan \(m^3/s\).
+\item
+  Data klimatologi merupakan data dengan 10 kolom berupa:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Arah angin saat kecepatan maksimum (ddd\_x) dalam satuan derajat
+  \item
+    Arah angin terbanyak (ddd\_car) dalam satuan derajat
+  \item
+    Curah hujan (RR) dalam satuan \(mm\)
+  \item
+    Kecepatan angin maksimum (ff\_x) dalam satuan \(m/s\)
+  \item
+    Kecepatan angin rata-rata (ff\_avg) dalam satuan \(m/s\)
+  \item
+    Kelembapan rata-rata (RH\_avg) dalam satuan \%
+  \item
+    Lamanya penyinaran matahari (ss) dalam satuan jam
+  \item
+    Temperatur maksimum (Tx) dalam derajat Celcius
+  \item
+    Temperatur minimum (Tn) dalam derajat Celcius
+  \item
+    Temperatur rata-rata (Tavg) dalam derajat Celcius
+  \end{itemize}
+\item
+  Data debit merupakan variabel dependen, sedangkan data lainnya
+  merupakan variabel independen.
+\item
+  Pada data klimatologi, isian yang bernilai \texttt{8888} berarti data
+  tidak diukur dan isian yang bernilai \texttt{9999} berarti tidak ada
+  data (tidak dilakukan pengukuran). Nilai tersebut akan dianggap nilai
+  yang hilang ``\texttt{NaN}''.
+\end{itemize}
+
+    \hypertarget{strategi-penyelesaian}{%
+\section{Strategi Penyelesaian}\label{strategi-penyelesaian}}
+
+Terdapat 5 tahap yang saya ikuti dalam menjawab objektif buku ini.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Tahap 0: Pengaturan Awal dan Inisiasi
+
+  Pada tahap ini dilakukan pengaturan awal dan inisiasi untuk
+  mempersiapkan buku. Buku dapat dijalankan secara lokal ataupun
+  \emph{cloud} menggunakan Google Colab. Di tahap ini, dapat dilakukan
+  pengaturan manual seperti penamaan buku (jika ingin dilakukan
+  penyimpanan), menentukan lokasi dataset dan dropbox, dll.
+\item
+  Tahap 1: Akusisi Dataset
+
+  Dataset yang diterima bisa dalam berbagai bentuk seperti dalam bentuk
+  Excel, PDF, bahkan fisik berupa lembaran/laporan. Pada tahap ini
+  dilakukan pengubahan dataset tersebut biar bisa diolah secara digital.
+  Untungnya, pada buku ini, dataset yang diperoleh berupa digital dengan
+  format .xls sehingga memudahkan dalam mempersiapkan pengolahan data
+  lebih lanjut.
+
+  Untuk membantu tahap ini juga dibuat modul khusus yang telah tersedia
+  di hidrokit yang dapat diakses melalui
+  \texttt{hidrokit.contrib.taruma} dengan nama modul \texttt{hk43} untuk
+  data hujan/debit dan \texttt{hk73} untuk data klimatologi/bmkg.
+\item
+  Tahap 2: Prapemrosesan Data
+
+  Tahap ini memastikan kelengkapan data dan validitas data.
+  Prapemrosesan dapat berupa mencari nilai invalid dan mengoreksinya,
+  memeriksa data yang hilang dan dikoreksi dengan berbagai metode (pada
+  buku ini menggunakan interpolasi linear). Karena pemodelan bergantung
+  dengan data yang digunakan, tahap ini memiliki peran penting dalam
+  keberhasilan pemodelan.
+\item
+  Tahap 3: Input Pemodelan
+
+  Data yang telah melewati tahap prapemrosesan akan dipersiapkan untuk
+  digunakan dalam pemodelan. Persiapan ini berupa memisahkan dataset
+  menjadi dua bagian yaitu \emph{train set} dan \emph{test set},
+  normalisasi, dan transformasi dataset.
+
+  Pada pemodelan \emph{Recurrent Neural Networks}, input yang diterima
+  berbentuk tensor 3D. Pada manual Keras, disebutkan bahwa dimensi
+  tensor 3D berupa (\emph{batch\_size}, \emph{timesteps},
+  \emph{input\_dim}).
+
+  Dalam buku ini, digunakan \texttt{TIMESTEPS=365} hari serupa pada
+  makalah Kratzert et. al. (2018). Nilai \emph{timesteps} tidak harus
+  bernilai \texttt{365} di buku ini, nilai \emph{timesteps} dapat di isi
+  dengan nilai sembarang sampai memperoleh nilai optimal untuk model.
+
+  Untuk membantu tahap ini, dibuat modul khusus yang dapat diakses
+  melalui \texttt{hidrokit.contrib.taruma.hk53}.
+\item
+  Tahap 4: Melatih Model
+
+  Pada tahap ini harus ditentukan arsitektur RNN/LSTM yang akan
+  digunakan. Parameter seperti jumlah \emph{hidden layer}, jumlah
+  \emph{units}, penggunaan \emph{dropout layer}, jenis aktivasi, dll.
+
+  Untuk menyederhanakan permasalahan, penggunaan parameter selain yang
+  disebutkan dibawah ini menggunakan nilai \texttt{default} dari
+  program:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    optimizer: \texttt{adam}
+  \item
+    activation: \texttt{sigmoid}
+  \item
+    probability dropout: \texttt{0.1}
+  \item
+    units: \texttt{20}/lstm-layer
+  \item
+    loss function: \texttt{mean\ squared\ error}
+  \item
+    epoch: \texttt{50}
+  \item
+    batch\_size: \texttt{30}
+  \end{itemize}
+
+  Di tahap ini juga dibuat fungsi khusus untuk memperoleh metrik setiap
+  epoch. Fungsi khusus yang dibuat antara lain \texttt{nse},
+  \texttt{nse\_mod}, dan \texttt{r\_squared}.
+\item
+  Tahap 5: Evaluasi Model
+
+  Evaluasi yang dilakukan antara lain: melihat perkembangan metrik pada
+  setiap epoch, mengevaluasi \emph{train set} dan \emph{test set}.
+
+  Penilaian performa model bergantung pada metrik yang dihasilkan oleh
+  \emph{test set}. Metrik yang digunakan sebagai penilaian yaitu
+  \emph{mean squared error} (\emph{loss function}), \emph{mean absolute
+  error}, \emph{Nash-Sutcliffe Efficiency}, \emph{Modified NSE}, dan
+  \emph{Coefficient of Determination}.
+\end{enumerate}
+
+    \hypertarget{daftar-pustaka}{%
+\section{Daftar Pustaka}\label{daftar-pustaka}}
+
+Berikut daftar pustaka yang berkaitan dengan laporan ``Prediksi Debit
+Aliran menggunakan \emph{Long Short-Term Memory} (LSTM)''. Untuk daftar
+pustaka yang saya gunakan bisa dilihat pada halaman
+github.com/taruma/vivaldi.
+
+    \hypertarget{dataset}{%
+\subsection{Dataset}\label{dataset}}
+
+\begin{itemize}
+\tightlist
+\item
+  Megariansyah, Taruma S. (2015): Kajian Penerapan Model NRECA di
+  Bendung Pamarayan, Skripsi Program Sarjana, Universitas Katolik
+  Parahyangan.
+\item
+  BMKG (2019): Data Online BMKG, diperoleh melalui situs internet:
+  dataonline.bmkg.go.id (diakses pada: 2 Oktober 2019).
+\end{itemize}
+
+\hypertarget{makalah-laporan}{%
+\subsection{Makalah / Laporan}\label{makalah-laporan}}
+
+\begin{itemize}
+\tightlist
+\item
+  Kratzert, F., Klotz, D., Brenner, C., Schulz, K., Herrnegger, M.,
+  2018. Rainfall--runoff modelling using Long Short-Term Memory (LSTM)
+  networks. Hydrology and Earth System Sciences 22, 6005--6022.
+  https://doi.org/10.5194/hess-22-6005-2018
+\item
+  LeCun, Y. A., Bottou, L., Orr, G. B., and Müller, K. R.: Efficient
+  backprop, Springer, Berlin, Heidelberg, Germany, 2012.
+\item
+  Minns, A. W. and Hall, M. J.: Artificial neural networks as rainfall-
+  runoff models, Hydrolog. Sci. J., 41, 399--417, 1996.
+\end{itemize}
+
+\hypertarget{program}{%
+\subsection{Program}\label{program}}
+
+\hypertarget{bahasa-pemrograman}{%
+\subsubsection{Bahasa Pemrograman}\label{bahasa-pemrograman}}
+
+\begin{itemize}
+\tightlist
+\item
+  Van Rossum, G. \& Drake Jr, F.L., 1995. \emph{Python tutorial},
+  Centrum voor Wiskunde en Informatica Amsterdam, The Netherlands.
+\end{itemize}
+
+\hypertarget{paket-scipy-scientific-computing-in-python}{%
+\subsubsection{Paket Scipy (Scientific Computing in
+Python)}\label{paket-scipy-scientific-computing-in-python}}
+
+\begin{itemize}
+\tightlist
+\item
+  Fernando Pérez and Brian E. Granger. IPython: A System for Interactive
+  Scientific Computing, Computing in Science \& Engineering, 9, 21-29
+  (2007),
+  \href{https://doi.org/10.1109/MCSE.2007.53}{DOI:10.1109/MCSE.2007.53}
+\item
+  John D. Hunter. Matplotlib: A 2D Graphics Environment, Computing in
+  Science \& Engineering, 9, 90-95 (2007),
+  \href{https://doi.org/10.1109/MCSE.2007.55}{DOI:10.1109/MCSE.2007.55}
+\item
+  Stéfan van der Walt, S. Chris Colbert and Gaël Varoquaux. The NumPy
+  Array: A Structure for Efficient Numerical Computation, Computing in
+  Science \& Engineering, 13, 22-30 (2011),
+  \href{http://dx.doi.org/10.1109/MCSE.2011.37}{DOI:10.1109/MCSE.2011.37}
+\item
+  Wes McKinney. Data Structures for Statistical Computing in Python,
+  Proceedings of the 9th Python in Science Conference, 51-56 (2010)
+\end{itemize}
+
+\hypertarget{jupyter-notebook}{%
+\subsubsection{Jupyter Notebook}\label{jupyter-notebook}}
+
+\begin{itemize}
+\tightlist
+\item
+  Thomas, K., Benjamin, R.-K., Fernando, P., Brian, G., Matthias, B.,
+  Jonathan, F., \ldots{} Team, J. D. (2016). Jupyter Notebooks -- a
+  publishing format for reproducible computational workflows. Stand
+  Alone, 87--90. https://doi.org/10.3233/978-1-61499-649-1-87
+\end{itemize}
+
+\hypertarget{paket-deep-learning}{%
+\subsubsection{Paket Deep Learning}\label{paket-deep-learning}}
+
+\begin{itemize}
+\tightlist
+\item
+  Abadi, Mart'in et al., 2016. Tensorflow: A system for large-scale
+  machine learning. In 12th \(USENIX\) Symposium on Operating Systems
+  Design and Implementation (\(OSDI\) 16). pp.~265--283.
+\item
+  Chollet, F.: Keras, available at: https://github.com/keras-team/keras,
+  2015.
+\end{itemize}
+
+\hypertarget{paket-python}{%
+\subsubsection{Paket Python}\label{paket-python}}
+
+\begin{itemize}
+\tightlist
+\item
+  Megariansyah, Taruma. (2019, October 15). hidrokit: Analisis Hidrologi
+  dengan Python (Version 0.3.2). Zenodo.
+  http://doi.org/10.5281/zenodo.3490672
+\item
+  Roberts, W., Williams, G., Jackson, E., Nelson, E., Ames, D., 2018.
+  Hydrostats: A Python Package for Characterizing Errors between
+  Observed and Predicted Time Series. Hydrology 5(4) 66,
+  doi:10.3390/hydrology5040066
+\end{itemize}
+
+    \hypertarget{daftar-pranala}{%
+\section{Daftar Pranala}\label{daftar-pranala}}
+
+Berikut daftar pranala yang disinggung pada laporan.
+
+    \hypertarget{pranala-buku}{%
+\subsection{Pranala Buku}\label{pranala-buku}}
+
+\begin{itemize}
+\tightlist
+\item
+  Google Colab:
+\item
+  Github:
+\item
+  NBViewer:
+\item
+  Laporan:
+\item
+  Laporan (Rapih):
+\item
+  Catatan
+\end{itemize}
+
+\hypertarget{catatan}{%
+\subsection{Catatan}\label{catatan}}
+
+\begin{itemize}
+\tightlist
+\item
+  Google Colab: https://colab.research.google.com/
+\item
+  taruma/vivaldi: https://github.com/taruma/vivaldi
+\end{itemize}
+
+\hypertarget{panduan}{%
+\subsection{Panduan}\label{panduan}}
+
+\begin{itemize}
+\tightlist
+\item
+  hk43:
+  https://nbviewer.jupyter.org/gist/taruma/a9dd4ea61db2526853b99600909e9c50
+\item
+  hk73:
+  https://nbviewer.jupyter.org/gist/taruma/b00880905f297013f046dad95dc2e284
+\item
+  hk53:
+  https://nbviewer.jupyter.org/gist/taruma/50460ebfaab5a30c41e7f1a1ac0853e2
+\end{itemize}
+
+\hypertarget{tulisan}{%
+\subsection{Tulisan}\label{tulisan}}
+
+\begin{itemize}
+\tightlist
+\item
+  https://towardsdatascience.com/smarter-ways-to-encode-categorical-data-for-machine-learning-part-1-of-3-6dca2f71b159
+\item
+  https://towardsdatascience.com/basic-feature-engineering-to-reach-more-efficient-machine-learning-6294022e17a5
+\end{itemize}
+
+\hypertarget{referensi}{%
+\subsection{Referensi}\label{referensi}}
+
+\begin{itemize}
+\tightlist
+\item
+  https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.StandardScaler.html
+\item
+  https://keras.io/layers/recurrent/
+\item
+  https://en.wikipedia.org/wiki/Nash--Sutcliffe\_model\_efficiency\_coefficient
+\end{itemize}
+
+\hypertarget{hydrostats-hydroerr}{%
+\subsection{HydroStats / HydroErr}\label{hydrostats-hydroerr}}
+
+\begin{itemize}
+\tightlist
+\item
+  https://github.com/BYU-Hydroinformatics/HydroErr
+\item
+  https://github.com/BYU-Hydroinformatics/Hydrostats
+\end{itemize}
+
+\hypertarget{license}{%
+\subsection{LICENSE}\label{license}}
+
+\begin{itemize}
+\tightlist
+\item
+  MIT: https://github.com/taruma/vivaldi/blob/master/LICENSE
+\item
+  CC-BY-4.0: https://creativecommons.org/licenses/by/4.0/
+\end{itemize}
+
+    \hypertarget{referensi-belajar}{%
+\section{Referensi Belajar}\label{referensi-belajar}}
+
+Saya tidak memiliki latar belakang dalam bidang komputer sehingga apa
+yang saya pelajari murni dari belajar otodidak yang materi
+pembelajarannya diperoleh daring \emph{online}. Jika tertarik daftar
+materi pembelajaran saya, bisa lihat di profil koding saya di
+\href{https://taruma.github.io/koding}{taruma.github.io/koding} (akan
+saya perbarui dengan daftar yang lengkap jika sempet. :D ). Saya hanya
+akan menyebutkan beberapa kelas/kursus yang bermanfaat dalam pembuatan
+buku ini.
+
+    \hypertarget{belajar-python}{%
+\subsection{Belajar Python}\label{belajar-python}}
+
+Saya mempelajari python dimulai dari akhir tahun 2017 sampai sekarang,
+jadi masih tergolong awam juga. Saya memulai belajar python dengan
+ketertarikan dalam dunia \emph{data science}. Saya mengambil kelas yang
+tersedia gratis (\emph{audit access}) di
+\href{https://www.edx.org/}{edX.org}. Berikut beberapa kelas yang saya
+ambil:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}edX{]} Introduction to Python (DEV236x, DEV274x, DEV330x) oleh
+  Microsoft.
+\item
+  {[}edX{]} Data Science Research Method: Python Edition (DAT273x) oleh
+  Microsoft.
+\item
+  {[}udemy{]} Python for Data Science and Machine Learning Bootcamp oleh
+  Jose Portilla.
+\item
+  {[}edX{]} Using Python for Research oleh HarvardX.
+\end{itemize}
+
+    \hypertarget{belajar-machine-learning-deep-learning}{%
+\subsection{Belajar Machine Learning / Deep
+Learning}\label{belajar-machine-learning-deep-learning}}
+
+Berikut beberapa kelas yang saya ambil terkait deep learning:
+
+\begin{itemize}
+\tightlist
+\item
+  {[}edX{]} Data Science Essentials (DEV203.1x) dan Principle of Machine
+  Learning (DEV203.2x) oleh Microsoft.
+\item
+  {[}udemy{]} Machine Learning A-Z™: Hands-On Python \& R In Data
+  Science oleh Kirill Eremenko, Hadelin de Ponteves, SuperDataScience.
+\item
+  {[}udemy{]} Deep Learning A-Z™: Hands-On Artificial Neural Networks
+  oleh Kirill Eremenko, Hadelin de Ponteves, SuperDataScience.
+\end{itemize}
+
+    \hypertarget{video-youtube}{%
+\subsection{Video Youtube}\label{video-youtube}}
+
+Selain dari kelas juga saya menonton materi dari video youtube. Berikut
+daftar video youtube yang membantu saya mempelajari python/machine
+learning (Judul video/playlist oleh @nama channel):
+
+\begin{itemize}
+\tightlist
+\item
+  Python Tutorial oleh @Corey Schafer.
+\item
+  Python Tutorial (Machine Learning with Python, Deep Learning basics
+  with Python, Tensorflow and Keras) oleh @sentdex.
+\item
+  Data Science with Python Pandas by Athena Kan oleh @CS50.
+\item
+  Roadmap: How to Learn Machine Learning in 6 Months by Zach Miller oleh
+  @IDEAS.
+\end{itemize}
+
+    \hypertarget{changelog}{%
+\section{Changelog}\label{changelog}}
+
+\begin{verbatim}
+- 20191022 - 1.0.0 - Initial
+\end{verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
