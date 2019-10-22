@@ -360,6 +360,11 @@
     % Slightly bigger margins than the latex defaults
     
     \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+
+    % MY EDIT
+	% ref: https://tex.stackexchange.com/questions/131015/page-break-after-every-section
+	\let\oldsection\section
+	\renewcommand\section{\clearpage\oldsection} 
     
 \begin{document}
    
