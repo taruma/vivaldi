@@ -1,4 +1,10 @@
+---
+permalink: /pustaka-makalah
+---
+
 # Pustaka Makalah
+
+Last Update: Oktober 2019
 
 Berikut daftar makalah yang (mungkin) saya gunakan sebagai referensi:
 
@@ -9,7 +15,6 @@ Berikut daftar makalah yang (mungkin) saya gunakan sebagai referensi:
 - Hromadka, T. V. (1990). Rainfall-runoff models: A review. Environmental Software, 5(2), 82–103. https://doi.org/10.1016/0266-9838(90)90005-Q
 - Li, H., Sun, J., Zhang, H., Zhang, J., Jung, K., Kim, J., … Li, F. (2018). What Large Sample Size Is Sufficient for Hydrologic Frequency Analysis?—A Rational Argument for a 30-Year Hydrologic Sample Size in Water Resources Management. Water, 10(4), 430. https://doi.org/10/gdsfpw
 - Shen, C. (n.d.). A trans-disciplinary review of deep learning research for water resources scientists. 45.
-
 
 ----
 

@@ -35,6 +35,37 @@ Judul Laporan
 	\end{titlepage}
 ```
 
+## Untuk Laporan (hidrokit+vivaldi)
+
+```tex
+    % MY EDIT
+	% ref: https://tex.stackexchange.com/questions/131015/page-break-after-every-section
+	\let\oldsection\section
+	\renewcommand\section{\clearpage\oldsection} 
+
+\begin{document}
+   
+%    \maketitle
+%	ref: https://stackoverflow.com/questions/3141702/vertically-centering-a-title-page
+	\begin{titlepage}
+		\vspace*{\fill}
+		\begin{center}
+ 		\normalsize Laporan Implementasi \\
+		\huge Prediksi Kualitas Air menggunakan \emph{Artificial Neural Networks} (ANN)\\ 
+		\normalsize Versi 2.0.0 \\[0.2cm]
+      	\small Berdasarkan \emph{Jupyter Notebook}: \texttt{taruma\_demo\_ann\_ka\_2\_0\_0.ipynb} \\[0.5cm]
+      	\normalsize Buku ini menyajikan implementasi \emph{Deep Learning} pada kasus memprediksikan kualitas air. \\[0.5cm]
+		\normalsize oleh Taruma Sakti Megariansyah\\[0.5cm]
+      	\normalsize 13 Juli 2019\\[1cm]
+    	\adjustimage{max size={0.9\linewidth}{1cm}}{hidrokit_logo.jpg}\\
+      	\normalsize github.com/taruma/hidrokit \\[0.5cm]
+      	\adjustimage{max size={0.9\linewidth}{1cm}}{vivaldi_logo.png}\\
+      	\normalsize github.com/taruma/vivaldi
+		\end{center}
+    	\vspace*{\fill}
+	\end{titlepage}
+```
+
 ## Untuk Catatan
 
 Judul Catatan
@@ -60,6 +91,30 @@ Judul Catatan
       	\normalsize 22 Oktober 2019\\[1cm]
     	\adjustimage{max size={0.9\linewidth}{1cm}}{vivaldi_logo.png}\\
       	\normalsize github.com/taruma/vivaldi
+		\end{center}
+    	\vspace*{\fill}
+	\end{titlepage}
+```
+
+## Hidrokit Contrib (Taruma)
+
+```tex
+\begin{document}
+  
+%    \maketitle
+%	ref: https://stackoverflow.com/questions/3141702/
+	\begin{titlepage}
+		\vspace*{\fill}
+		\begin{center}
+ 		\normalsize Manual / Referensi Modul \texttt{hidrokit.contrib.taruma}\\
+		\huge \texttt{.hkXX}: _\\ 
+		\small telah tersedia pada versi hidrokit 0.3._ \\[0.2cm]
+      	\small Berdasarkan \emph{Jupyter Notebook}: \texttt{github-taruma\_hk.ipynb} \\[0.5cm]
+      	\small __ \\[0.5cm]
+		\normalsize oleh Taruma Sakti Megariansyah\\[0.5cm]
+      	\normalsize 26 September 2019 (1.0.0)\\[1cm]
+    	\adjustimage{max size={0.9\linewidth}{1cm}}{hidrokit_logo.jpg}\\
+      	\normalsize github.com/taruma/hidrokit
 		\end{center}
     	\vspace*{\fill}
 	\end{titlepage}
