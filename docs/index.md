@@ -1,8 +1,8 @@
 
 <div align="center" markdown="1">
-![Image of fast.ai logo](images/vivaldi_logo.png "vivaldi logo")
+![vivaldi logo](images/vivaldi_logo.png "vivaldi logo")
 
-## Vivaldi Project
+## $vivaldi$ project
 </div>
 
 Proyek $vivaldi$ merupakan proyek dokumentasi dalam penggunaan/penerapan _Machine Learning_ dan/atau _Python_ dalam bidang sumberdaya air. Proyek ini saya gunakan sebagai tempat menyimpan seluruh pekerjaan saya, dari catatan, _jupyter notebook_, pengerjaan penelitian, jurnal perkembangan, dlsbnya. Seluruh dokumen yang tersedia di dalam proyek/repository menggunakan lisensi [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) (kecuali dinyatakan secara spesifik/terpisah pada dokumennya).
