@@ -5,7 +5,7 @@
 ## $vivaldi$ project
 </div>
 
-Proyek $vivaldi$ merupakan proyek dokumentasi dalam penggunaan/penerapan _Machine Learning_ dan/atau _Python_ dalam bidang sumberdaya air. Proyek ini saya gunakan sebagai tempat menyimpan seluruh pekerjaan saya, dari catatan, _jupyter notebook_, pengerjaan penelitian, jurnal perkembangan, dlsbnya. Seluruh dokumen yang tersedia di dalam proyek/repository menggunakan lisensi [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) (kecuali dinyatakan secara spesifik/terpisah pada dokumennya).
+Proyek $vivaldi$ merupakan proyek dokumentasi penggunaan/penerapan _Machine Learning_ dan/atau _Python_ dalam bidang sumberdaya air. Proyek ini saya gunakan sebagai tempat menyimpan seluruh pekerjaan saya, dari catatan, _jupyter notebook_, pengerjaan penelitian, jurnal perkembangan, dlsbnya. Seluruh dokumen yang tersedia di dalam proyek/repository menggunakan lisensi [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) (kecuali dinyatakan secara spesifik/terpisah pada dokumennya).
 
 ---
 
