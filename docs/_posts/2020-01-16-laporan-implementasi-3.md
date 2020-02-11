@@ -4,11 +4,12 @@ permalink: laporan-implementasi-3-hidrologi-hidrokit
 
 # LI3: Analisis hidrologi menggunakan hidrokit
 
-Judul: Analisis hidrologi menggunakan `hidrokit`
-
-Tanggal Publikasi: 16 Januari 2020
-
-Platform: Github
+Judul | __Analisis hidrologi menggunakan `hidrokit`__
+Tanggal Publikasi | 16 Januari 2020
+Unduh | [OneDrive](https://1drv.ms/b/s!AmxSTa4UunElhoU3ehyoy45_RG6hjA?e=5wUb8d)
+Lihat | [Github Gist](https://gist.github.com/taruma/4c1ed1212290965ecda056f45d7aaea2), [NBViewer](https://nbviewer.jupyter.org/gist/taruma/4c1ed1212290965ecda056f45d7aaea2)
+Fokus | penggunaan python pada bidang sda, demo hidrokit
+Lisensi | MIT, CC-BY-4.0
 
 ---
 
@@ -22,11 +23,3 @@ Daftar Pranala Buku:
 - [Unduh Laporan](https://github.com/taruma/vivaldi/blob/master/pdf/taruma_lstm_rr_laporan.pdf?raw=true), format PDF versi 1.0.0 dengan _source code_ + _outputs_
 - [Unduh Laporan (rapih)](https://github.com/taruma/vivaldi/blob/master/pdf/taruma_lstm_rr_laporan_rapih.pdf?raw=true), format PDF versi 1.0.0 hanya _outputs_*
 - [Unduh Catatan](https://github.com/taruma/vivaldi/blob/master/pdf/taruma_lstm_rr_catatan.pdf?raw=true), format PDF versi 1.0.0
-
-
-Daftar Pustaka yang telah dikumpulkan: [Pustaka Lokal](./pustaka/PUSTAKA_LOKAL.md), [Pustaka Makalah (Internasional)](./pustaka/PUSTAKA_MAKALAH.md), [Pustaka Program](./pustaka/PUSTAKA_PROGRAM.md).
-
-Diagram terkait penelitian: [Diagram Metode Penelitian](./diagram/diagram_metode_penelitian.md).
-
-
-Jika Anda tertarik mengenai proyek vivaldi, silahkan dilanjut bacanya sampai paling bawah. 😁 Kalau enggak, gak apa-apa, toh proyeknya juga gak jelas dan belum selesai. 😆
