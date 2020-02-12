@@ -22,6 +22,6 @@ Laporan Implementasi (#1-#3) dapat diunduh bersamaan dengan manual hidrokit pada
 
 ## Referensi/Pustaka
 
-Untuk informasi referensi/pustaka yang saya gunakan, kunjungi halaman [Pranala](pranala.md).
+Untuk informasi referensi/pustaka yang saya gunakan, kunjungi halaman [Pranala](pages/pranala.md).
 
 ---
