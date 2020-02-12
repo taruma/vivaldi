@@ -49,7 +49,7 @@ kramdown:
 # custom
 header_pages:
   - about.md
-  - pranala.md
+  - pages/pranala.md
 
 minima:
   social_links:
