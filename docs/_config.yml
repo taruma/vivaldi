@@ -50,4 +50,4 @@ kramdown:
 header_pages:
   - about.md
   - pranala.md
-  - /pages/test-page.md
+  - "pages/testpage.md"
