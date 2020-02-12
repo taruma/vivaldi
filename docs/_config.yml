@@ -47,7 +47,7 @@ kramdown:
   syntax_highlighter: rouge
 
 # custom
-# header_pages:
-#   - about.md
-#   - pranala.md
-#   - test-page.md
+header_pages:
+  - about.md
+  - pranala.md
+  - /pages/test-page.md
