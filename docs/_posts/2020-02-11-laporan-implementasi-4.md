@@ -7,7 +7,7 @@ permalink: laporan-implementasi-4-banding-model-variasi-RNN
 Judul | __Perbandingan model variasi _Recurrent  Neural Networks_ (RNN) pada kasus prediksi debit aliran.__
 Tanggal Publikasi | 11 Februari 2020 (1.0.0)
 Unduh | [OneDrive (PDF)](https://1drv.ms/b/s!AmxSTa4UunElhoVm7i0EuKdPkPlzVg?e=rjXNpf)
-Lihat | [Github Gist](https://gist.github.com/taruma/9d1ef5c6d629c792bed0c3f68b324675), [NBViewer](https://nbviewer.jupyter.org/gist/taruma/9d1ef5c6d629c792bed0c3f68b324675), [Google Colab](https://colab.research.google.com/drive/18U8SLe9mgCs570rVDhjypTuxK0eWPy1n)
+Lihat | [Google Colab](https://colab.research.google.com/drive/18U8SLe9mgCs570rVDhjypTuxK0eWPy1n), [Github Gist](https://gist.github.com/taruma/9d1ef5c6d629c792bed0c3f68b324675), [NBViewer](https://nbviewer.jupyter.org/gist/taruma/9d1ef5c6d629c792bed0c3f68b324675)
 Tool | tensorflow, keras, numpy, pandas, matplotlib, hidrokit, hydroerr, seaborn 
 Fokus | implementasi rnn, visualisasi data/hasil, membandingkan model
 Lisensi | MIT, CC-BY-4.0

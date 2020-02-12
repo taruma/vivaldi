@@ -45,3 +45,9 @@ kramdown:
   auto_ids: true
   hard_wrap: false
   syntax_highlighter: rouge
+
+# custom
+header_pages:
+  - about.md
+  - pranala.md
+  - pages/test-page.md
