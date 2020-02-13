@@ -35,3 +35,4 @@ Saya menandai artikel yang menarik dan/atau yang saya gunakan di [Raindrop].
 ---
 
 [Tutorial (Markdown Blog)](pages/helloworld.md)
+[Test Diagram](pages/testdiagram.html)
