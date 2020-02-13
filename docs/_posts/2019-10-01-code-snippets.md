@@ -1,8 +1,17 @@
-Berikut potong kode yang digunakan untuk dokumen .tex
+---
+permalink: /code-snippets
+---
 
-## Untuk Laporan
+# Code Snippets
 
-Judul Laporan 
+1. TOC
+{:toc}
+
+---
+
+## LaTeX Snippets
+
+### Judul Laporan 
 
 ```tex
     % MY EDIT
@@ -35,7 +44,7 @@ Judul Laporan
 	\end{titlepage}
 ```
 
-## Untuk Laporan (hidrokit+vivaldi)
+### Laporan Implementasi (hidrokit+vivaldi)
 
 ```tex
     % MY EDIT
@@ -66,7 +75,7 @@ Judul Laporan
 	\end{titlepage}
 ```
 
-## Untuk Catatan
+### Catatan
 
 Judul Catatan
 
@@ -96,7 +105,7 @@ Judul Catatan
 	\end{titlepage}
 ```
 
-## Hidrokit Contrib (Taruma)
+### `hidrokit` contrib
 
 ```tex
 \begin{document}

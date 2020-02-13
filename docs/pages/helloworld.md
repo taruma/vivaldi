@@ -1,4 +1,4 @@
-# testpage
+# Hello World (Tutorial Blog)
 
 Here's the table of contents:
 
@@ -69,7 +69,7 @@ Test equation:
 
 ini persamaan $x^2$
 
-Test lagi :
+Test lagi:
 
 $$ x^2 $$
 
