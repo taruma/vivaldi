@@ -16,7 +16,7 @@ Pada halaman ini merupakan kumpulan pranala.
 
 Berikut halaman pustaka yang saya gunakan/koleksi:
 
-- [Halaman Pustaka](_posts/2019-10-01-pustaka.md)
+- [Halaman Pustaka](../_posts/2019-10-01-pustaka.md)
 
 ## Daftar Artikel (_bookmark_)
 
@@ -34,5 +34,6 @@ Saya menandai artikel yang menarik dan/atau yang saya gunakan di [Raindrop].
 
 ---
 
-[Tutorial (Markdown Blog)](pages/helloworld.md)
+[Tutorial (Markdown Blog)](../pages/helloworld.md)
+
 [Test Diagram](pages/testdiagram.html)

@@ -1,3 +1,7 @@
+---
+permalink: /helloworld
+---
+
 # Hello World (Tutorial Blog)
 
 Here's the table of contents:
