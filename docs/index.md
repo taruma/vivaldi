@@ -5,9 +5,11 @@
 ## $vivaldi$ project
 </div>
 
+{% include alert.html text="Situs ini digunakan sebagai catatan pribadi.<br>Dan dapat berubah-ubah."%}
+
 Proyek $vivaldi$ merupakan proyek dokumentasi penggunaan/penerapan _Machine Learning_ dan/atau _Python_ dalam bidang sumberdaya air. Proyek ini saya gunakan sebagai tempat menyimpan seluruh pekerjaan saya, dari catatan, _jupyter notebook_, pengerjaan penelitian, jurnal perkembangan, dlsbnya. Seluruh dokumen yang tersedia di dalam proyek/repository menggunakan lisensi [CC-BY-SA-4.0](https://creativecommons.org/licenses/by-sa/4.0/) (kecuali dinyatakan secara spesifik/terpisah pada dokumennya). Situs ini masih dalam tahap pengembangan, jadi beberapa konten belum tersedia. ✌
 
----
+-----
 
 ## Laporan Implementasi
 
@@ -25,4 +27,4 @@ Laporan Implementasi (#1-#3) dapat diunduh bersamaan dengan manual hidrokit pada
 Untuk informasi referensi/pustaka yang saya gunakan, kunjungi halaman [Pranala](pages/pranala.md).
 
 
----
+-----
