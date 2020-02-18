@@ -33,7 +33,7 @@ Unduh | [CSV](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_pape
 
 Berikut daftar makalah yang telah saya baca (bukan berarti memahami sepenuhnya). 😁. 
 
-print code | Tahun | Judul | Penulis | Penerbit
+print code | Tahun | Judul | Penulis | Publikasi
 :-: | :-: | - | - | :-:
 {%- assign collection = site.data.list_paper | sort: 'year' | reverse -%}
 {%- assign read_collection = collection | where: "read", "yes" -%}
@@ -55,7 +55,7 @@ Catatan:
 
 Berikut daftar makalah yang saya kumpulkan untuk dibaca. 😁. 
 
-print code | Tahun | Judul | Penulis | Penerbit
+print code | Tahun | Judul | Penulis | Publikasi
 :-: | :-: | - | - | :-:
 {%- assign unread_collection = '' | split: '' -%}
 {%- for item in collection -%}
