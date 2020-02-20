@@ -10,12 +10,10 @@
 # url: "https://taruma.github.io"
 
 title: vivaldi project
-description: Water + Engineering + Python + Machine Learning = ❤
-github_username: taruma
+description: Documentation + Python + Machine Learning + Sharing = ❤
 
 # Email and twitter are optional:
 email: hi@taruma.info
-twitter_username: tarumainfo
 
 # Set this to true to get LaTeX math equation support
 use_math: true
@@ -30,7 +28,6 @@ plugins:
   - jekyll-gist
   - jekyll-octicons
   - jekyll-github-metadata
-  - jekyll-relative-links
 
 titles_from_headings:
   enabled:     true
@@ -51,34 +48,5 @@ header_pages:
   - about.md
   - pages/pranala.md
 
-minima:
-  social_links:
-    twitter: tarumainfo
-    github: taruma
-    # stackoverflow: "11111"
-    # dribbble: jekyll
-    facebook: taruma
-    # flickr: jekyll
-    instagram: tarumainfo
-    # linkedin: jekyll
-    # pinterest: jekyll
-    # telegram: jekyll
-    # microdotblog: jekyll
-    # keybase: jekyll
-    # rss: rss
-
-    # mastodon:
-    #  - username: jekyll
-    #    instance: example.com
-    #  - username: jekyll2
-    #    instance: example.com
-
-    # gitlab:
-    #  - username: jekyll
-    #    instance: example.com
-    #  - username: jekyll2
-    #    instance: example.com
-
-    youtube: tarumainfo
-    youtube_channel: UCI1n5__-1i6TZs2I7kCs_8w
-    youtube_channel_name: Taruma Sakti
+# paginate: 5
+# paginate_path: "/page/:num/"

@@ -255,7 +255,6 @@ DEPENDENCIES
   jekyll-feed (~> 0.12)
   jekyll-github-metadata
   jekyll-octicons
-  jekyll-relative-links
   minima (~> 2.5)
   tzinfo (~> 1.2)
   tzinfo-data
