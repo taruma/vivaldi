@@ -16,8 +16,8 @@ Pada halaman ini merupakan kumpulan pranala.
 
 Berikut halaman pustaka yang saya gunakan/koleksi:
 
-- [Daftar Makalah]({% link _posts/2020-02-16-daftar-makalah.md %})
-- [Halaman Pustaka]({% link  _posts/2019-10-01-pustaka.md %})
+- [Daftar Makalah](../_posts/2020-02-16-daftar-makalah.md)
+- [Halaman Pustaka](../_posts/2019-10-01-pustaka.md)
 
 ## Daftar Artikel (_bookmark_)
 

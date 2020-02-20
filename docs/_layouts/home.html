@@ -17,7 +17,11 @@ layout: default
     <hr>
     {%- if posts.size > 0 -%}
         <center>
-            <h2 class="post-list-heading">{{ page.list_title | default: "Tulisan" }}</h2>
+            <div class="bg-gray-dark p-0">
+                <h2 class="f0-light text-white text-shadow-dark">
+                    <a id="daftar-tulisan"></a>
+                    {{ page.list_title | default: "Daftar Tulisan" }}</h>
+            </div>
         </center>
         <ul class="post-list">
             {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
@@ -37,9 +41,10 @@ layout: default
         </ul>
 
         {% if site.paginate %}
+
             <div class="pagination">
                 {% if paginator.previous_page %}
-                    <a href="{{ paginator.previous_page_path | relative_url }}" class="previous">&laquo; Previous</a>
+                    <a href="{{ paginator.previous_page_path | relative_url }}#daftar-tulisan" class="previous">&laquo; Previous</a>
                 {% endif %}
 
                 <span class="page_number">Page:
@@ -48,34 +53,10 @@ layout: default
                     {{ paginator.total_pages }}</span>
 
                 {% if paginator.next_page %}
-                    <a href="{{ paginator.next_page_path | relative_url }}" class="next">Next &raquo;</a>
+                    <a href="{{ paginator.next_page_path | relative_url }}#daftar-tulisan" class="next">Next &raquo;</a>
                 {% endif %}
             </div>
         {% endif %}
     {% endif %}
-
-    <!-- {%- if site.posts.size > 0 -%}
-        <h2 class="post-list-heading">{{ page.list_title | default: "Posts" }}</h2>
-        <ul class="post-list">
-            {%- for post in site.posts -%}
-                <li>
-                    {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
-                    <span class="post-meta">{{ post.date | date: date_format }}</span>
-                    <h3>
-                        <a class="post-link" href="{{ post.url | relative_url }}">
-                            {{ post.title | escape }}
-                        </a>
-                    </h3>
-                    {%- if site.show_excerpts -%}
-                        {{ post.excerpt }}
-                    {%- endif -%}
-                </li>
-            {%- endfor -%}
-        </ul>
-
-        <p class="rss-subscribe">subscribe
-            <a href="{{ "/feed.xml" | relative_url }}">via RSS</a>
-        </p>
-    {%- endif -%} -->
 
 </div>

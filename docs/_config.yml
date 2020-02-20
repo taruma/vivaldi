@@ -13,7 +13,9 @@ title: vivaldi project
 description: Documentation + Python + Machine Learning + Sharing = ❤
 
 # Email and twitter are optional:
-email: hi@taruma.info
+author:
+  name: Taruma S. Megariansyah
+  email: hi@taruma.info
 
 # Set this to true to get LaTeX math equation support
 use_math: true
@@ -48,5 +50,5 @@ header_pages:
   - about.md
   - pages/pranala.md
 
-paginate: 5
+paginate: 7
 paginate_path: "/page/:num/"

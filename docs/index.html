@@ -17,28 +17,38 @@ layout: home
 
 {% include alert.html text="Situs ini digunakan sebagai catatan pribadi.<br>Dan dapat berubah-ubah."%}
 
-<div class="Box mb-3">
+<div class="Box my-3">
     <div class="Box-row d-flex flex-items-center">
         <div class="flex-auto">
             <strong>Laporan Implementasi</strong>
             <div class="text-small text-gray-light">
-                Laporan Implementasi (LI) merupakan buku (<em>jupyter notebook</em>) yang saya kembangkan yang memeragakan penggunaan
+                Laporan Implementasi (LI) merupakan buku (<em>jupyter notebook</em>) yang memeragakan penggunaan
                 <em>python</em>
                 dan/atau
                 <em>machine learning</em>
                 pada topik sumberdaya air.
             </div>
         </div>
-        <a href="{{site.baseurl}}/{% link _posts/2020-02-20-laporan-implementasi.md %}" role="button" class="btn">Lihat</a>
+        <a href="{{site.baseurl}}/{% link _posts/2020-02-20-laporan-implementasi.md %}" role="button" class="btn btn-sm btn-primary text-white ml-1">Lihat</a>
     </div>
     <div class="Box-row d-flex flex-items-center">
         <div class="flex-auto">
             <strong>Daftar Referensi</strong>
             <div class="text-small text-gray-light">
-                Saya membuat daftar berbagai referensi (buku, makalah, artikel) yang saya gunakan, kumpulkan.
+                Saya membuat daftar berbagai referensi (buku, makalah, artikel) yang saya gunakan dan kumpulkan.
             </div>
         </div>
-        <a href="{{site.baseurl}}/{% link _posts/2020-02-16-daftar-makalah.md %} " role="button" class="btn ml-2">Makalah</a>
-        <a href="{{site.baseurl}}/{% link _posts/2020-02-18-daftar-buku.md %}" role="button" class="btn ml-2">Buku</a>
+        <a href="{{site.baseurl}}/{% link _posts/2020-02-16-daftar-makalah.md %} " role="button" class="btn ml-1 btn-sm btn-outline">Makalah</a>
+        <a href="{{site.baseurl}}/{% link _posts/2020-02-18-daftar-buku.md %}" role="button" class="btn ml-1 btn-sm btn-outline">Buku</a>
+        <a aria-disabled="true" class="btn ml-1 btn-sm btn-outline" href="#" role="button">Artikel</a>
+    </div>
+    <div class="Box-row d-flex flex-items-center">
+        <div class="flex-auto">
+            <strong>Papan Kanban (Tesis)</strong>
+            <div class="text-small text-gray-light">
+                Papan Kanban (Papan Proyek) digunakan untuk memantau, mengatur, melacak pengerjaan tesis. Papan ini dibuat untuk menginformasikan perkembangan tesis. Papan ini diintegrasikan dengan isu di github.
+            </div>
+        </div>
+        <a class="btn ml-1 btn-sm" href="https://github.com/taruma/vivaldi/projects/1?fullscreen=true" role="button">Lihat</a>
     </div>
 </div>
