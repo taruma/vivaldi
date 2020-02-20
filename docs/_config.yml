@@ -6,8 +6,8 @@
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 
-# baseurl: "/vivaldi"
-# url: "https://taruma.github.io"
+baseurl: "/vivaldi"
+url: "https://taruma.github.io"
 
 title: vivaldi project
 description: Documentation + Python + Machine Learning + Sharing = ❤
@@ -48,5 +48,5 @@ header_pages:
   - about.md
   - pages/pranala.md
 
-# paginate: 5
-# paginate_path: "/page/:num/"
+paginate: 5
+paginate_path: "/page/:num/"
