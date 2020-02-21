@@ -1,0 +1,9 @@
+{% capture path_file %}{{ site.url }}{{ site.baseurl }}/diagram/{{ include.file }}.drawio{% endcapture %}
+
+{{ path_file }}
+{{ path_file | cgi_escape }}
+
+<div class="mxgraph" style="max-width:100%;border:1px solid transparent;"
+    data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;url&quot;:&quot;{{ path_file }}&quot;}">
+</div>
+<script type="text/javascript" src="https://www.draw.io/embed2.js?&fetch={{ path_file | cgi_escape }}"></script>
