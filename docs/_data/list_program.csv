@@ -1,0 +1,23 @@
+﻿nil,no,program,paper,author,year,use,publisher,doi,url
+,,python,Python tutorial,"Van Rossum, G. & Drake Jr, F.L.",1995,no,"Centrum voor Wiskunde en Informatica Amsterdam, The Netherlands",,https://python.org
+,,numpy,The NumPy Array: A Structure for Efficient Numerical Computation,"Stéfan van der Walt, S. Chris Colbert and Gaël Varoquaux",2011,yes,Computing in Science & Engineering,http://dx.doi.org/10.1109/MCSE.2011.37,
+,,pandas,Data Structures for Statistical Computing in Python,Wes McKinney,2010,yes,Proceedings of the 9th Python in Science Conference,,http://conference.scipy.org/proceedings/scipy2010/mckinney.html
+,,matplotlib,Matplotlib: A 2D Graphics Environment,John D. Hunter,2007,yes,Computing in Science & Engineering,https://doi.org/10.1109/MCSE.2007.55,http://scitation.aip.org/content/aip/journal/cise/9/3/10.1109/MCSE.2007.55
+,,python,Python for Scientific Computing,Travis E. Oliphant,2007,no,Computing in Science & Engineering,https://doi.org/10.1109/MCSE.2007.58,http://scitation.aip.org/content/aip/journal/cise/9/3/10.1109/MCSE.2007.58
+,,python,Python for Scientists and Engineers,K. Jarrod Millman and Michael Aivazis,2011,yes,Computing in Science & Engineering,https://doi.org/10.1109/MCSE.2011.36,http://scitation.aip.org/content/aip/journal/cise/13/2/10.1109/MCSE.2011.36
+,,IPython,IPython: A System for Interactive Scientific Computing,Fernando Pérez and Brian E. Granger,2007,no,Computing in Science & Engineering,https://doi.org/10.1109/MCSE.2007.53,http://scitation.aip.org/content/aip/journal/cise/9/3/10.1109/MCSE.2007.53
+,,scikit-learn,Scikit-learn: Machine Learning in Python,"Fabian Pedregosa, Gaël Varoquaux, Alexandre Gramfort, Vincent Michel, Bertrand Thirion, Olivier Grisel, Mathieu Blondel, Peter Prettenhofer, Ron Weiss, Vincent Dubourg, Jake Vanderplas, Alexandre Passos, David Cournapeau, Matthieu Brucher, Matthieu Perrot, Édouard Duchesnay",2011,yes,Journal of Machine Learning Research,,http://jmlr.org/papers/v12/pedregosa11a.html
+,,keras,Keras,"Chollet, F.",2015,yes,,,https://github.com/keras-team/keras
+,,tensorflow,TensorFlow: Large-scale machine learning on heterogeneous systems,"Martín Abadi, Ashish Agarwal, Paul Barham, Eugene Brevdo,
+Zhifeng Chen, Craig Citro, Greg S. Corrado, Andy Davis,
+Jeffrey Dean, Matthieu Devin, Sanjay Ghemawat, Ian Goodfellow,
+Andrew Harp, Geoffrey Irving, Michael Isard, Rafal Jozefowicz, Yangqing Jia,
+Lukasz Kaiser, Manjunath Kudlur, Josh Levenberg, Dan Mané, Mike Schuster,
+Rajat Monga, Sherry Moore, Derek Murray, Chris Olah, Jonathon Shlens,
+Benoit Steiner, Ilya Sutskever, Kunal Talwar, Paul Tucker,
+Vincent Vanhoucke, Vijay Vasudevan, Fernanda Viégas,
+Oriol Vinyals, Pete Warden, Martin Wattenberg, Martin Wicke,
+Yuan Yu, and Xiaoqiang Zheng.",2015,yes,12th {USENIX} Symposium on Operating Systems Design and Implementation ({OSDI} 16),,http://tensorflow.org/
+,,hidrokit,hidrokit: analisis hidrologi dengan python,"Megariansyah, Taruma S.",2019,yes,Zenodo,http://doi.org/10.5281/zenodo.3276220,https://github.com/taruma/hidrokit
+,,HydroErr,Hydrostats: A Python Package for Characterizing Errors between Observed and Predicted Time Series,"Roberts, W., Williams, G., Jackson, E., Nelson, E., Ames, D.",2018,yes,Hydrology,https://doi.org/10.3390/hydrology5040066,
+,,jupyter,Jupyter Notebooks – a publishing format for reproducible computational workflows,"Thomas, K., Benjamin, R.-K., Fernando, P., Brian, G., Matthias, B., Jonathan, F., … Team, J. D",2016,yes,IOS Press,https://doi.org/10.3233/978-1-61499-649-1-87,

@@ -1,0 +1,60 @@
+{% assign collection = site.data.list_program %}
+
+{% assign use = include.use | default: "yes" %}
+{% assign legend = include.legend | default: "no" %}
+
+{% assign new_collection = collection | where: "use", use | sort: "year" | reverse %}
+
+{% if legend == "no" %}
+<div class="border d-flex flex-column my-3 border-red">
+    {% for item in new_collection %}
+    <div class="p-2 pl-3 border bg-gray-light">
+        <!-- JUDUL MAKALAH -->
+        <span class="f3 text-bold">{{ item.program }}</span>
+        <br>
+        {% if item.paper %}
+        <span class="f5 text-bold text-italic">{{ item.paper }}</span>
+        <br>
+        {% endif %}
+
+        <!-- LABEL -->
+        <span title="Label: {{ item.year }}" class="Label bg-yellow text-gray-dark">{{ item.year }}</span>
+        {% if item.publisher %}
+        <span title="Label: {{ item.publisher }}" class="Label bg-blue">{{ item.publisher }}</span>
+        {% endif %}
+        {% if item.url %}
+        <span title="Label: URL {{ item.program }}" class="Label Label--outline"><a href="{{ item.url }}"
+                class="text-bold">SITUS</a></span>
+        {% endif %}
+        {% if item.doi %}
+        <span title="Label: DOI {{ item.program }}" class="Label Label--gray"><a href="{{ item.doi }}"
+                class="text-mono">DOI</a></span>
+        {% endif %}
+        <br>
+        <!-- TEXT -->
+        <span class="text-italic text-small">{{ item.author }}</span><br>
+    </div>
+    {% endfor %}
+</div>
+<span class="Label Label--orange text-mono text-small text-center">Jumlah: {{ new_collection.size }} Program</span>
+{% endif %}
+
+{% if legend == "yes" %}
+<div class="p-3 border border-dashed border-black-fade bg-gray-light my-2">
+    <!-- JUDUL MAKALAH -->
+    <span class="f3 text-bold">Nama Program</span>
+    <br>
+    <span class="f5 text-bold text-italic">Nama Makalah</span>
+    <br>
+
+    <!-- LABEL -->
+    <span title="Label: Tahun Publikasi" class="Label bg-yellow text-gray-dark">Tahun Publikasi</span>
+    <span title="Label: Publikasi" class="Label bg-blue">Publikasi/Jurnal</span>
+    <span title="Label: URL" class="Label Label--outline">Pranala URL/Situs</span>
+    <span title="Label: DOI" class="Label Label--gray">Pranala DOI</span>
+
+    <br>
+    <!-- TEXT -->
+    <span class="text-italic">Penulis</span><br>
+</div>
+{% endif %}
