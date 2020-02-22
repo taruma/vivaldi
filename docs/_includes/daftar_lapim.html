@@ -1,0 +1,87 @@
+{% assign collection = site.data.list_lapim %}
+
+{% assign legend = include.legend | default: "no" %}
+
+{% assign new_collection = collection | sort: "publish_date" | reverse %}
+
+{% if legend == "no" %}
+<div class="border d-flex flex-column my-3 border-gray">
+    {% for item in new_collection %}
+    <div class="p-2 border bg-gray-light">
+        <!-- JUDUL LAPORAN -->
+        <span title="Label: NO {{ item.li }}" class="State bg-red text-white text-mono text-small">#{{ item.li }}</span>
+        <span class="f3 text-bold">{{ item.title }}</span>
+        <span title="Label: Versi {{ item.li }}"
+            class="Label Label--outline-green text-mono text-small">{{ item.version }}</span>
+        <br>
+        <span class="f5 text-bold text-italic">{{ item.other_title }}</span>
+        <br>
+
+        <!-- LABEL -->
+        <span title="Label: Tanggal Publikasi {{ item.li }}"
+            class="Label bg-yellow text-gray-dark">{{ item.publish_date | date: "%d %b %Y"}}</span>
+        <span title="Label: Lisensi {{ item.li }}" class="Label bg-blue">{{ item.license }}</span>
+        <span title="Label: Versi Hidrokit" class="Label Label--outline text-mono">hidrokit {{ item.hidrokit }}</span>
+
+        <br>
+        <!-- TEXT -->
+        <span class="text-small text-italic">{{ item.author }}</span>
+
+        <br>
+        <!-- BUTTON -->
+        {% if item.permalink %}
+        <a class="btn mt-2 btn-danger btn-sm" href="{{ site.baseurl }}/{{ item.permalink }}"
+            role="button">{% octicon comment %}</a>
+        {% endif %}
+        {% if item.pdf %}
+        <a class="btn mt-2 btn-primary btn-sm" href="{{ item.pdf }}" role="button">{% octicon desktop-download %}</a>
+        {% endif %}
+        {% if item.gcolab %}
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gcolab }}" role="button">{% octicon github-action %}</a>
+        {% endif %}
+        {% if item.gist %}
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gist }}" role="button">{% octicon logo-gist %}</a>
+        {% endif %}
+        {% if item.nbviewer %}
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.nbviewer }}" role="button">{% octicon eye %}</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+<span class="Label Label--orange text-mono text-small text-center">Jumlah: {{ new_collection.size }} Laporan</span>
+{% endif %}
+
+{% if legend == "yes" %}
+<div class="p-3 border border-dashed border-black-fade bg-gray-light my-2">
+    <!-- JUDUL LAPORAN -->
+    <span title="Label: NO Lapim" class="State bg-red text-white text-mono text-small"># Nomor Laporan</span>
+    <span class="f3 text-bold">Judul Laporan</span>
+    <span title="Label: Versi Lapim" class="Label Label--outline-green text-mono text-small">Versi Laporan</span>
+    <br>
+    <span class="f5 text-bold text-italic">Judul Lain Laporan</span>
+    <br>
+
+    <!-- LABEL -->
+    <span title="Label: Tanggal Publikasi" class="Label bg-yellow text-gray-dark">Tanggal Publikasi</span>
+    <span title="Label: Lisensi" class="Label bg-blue">Lisensi</span>
+    <span title="Label: Versi Hidrokit" class="Label Label--outline text-mono">Versi hidrokit</span>
+
+    <br>
+    <!-- TEXT -->
+    <span class="text-small text-italic">Penulis</span>
+
+    <br>
+    <!-- BUTTON -->
+    <a aria-disabled="true" class="btn mt-2 btn-danger btn-sm" href="#url" role="button">{% octicon comment %}
+        Blogpost</a>
+    <a aria-disabled="true" class="btn mt-2 btn-primary btn-sm" href="#url" role="button">{% octicon desktop-download %}
+        Unduh PDF</a>
+    <a aria-disabled="true" class="btn mt-2 btn-outline btn-sm" href="#url" role="button">{% octicon github-action %}
+        Buka Menggunakan Google Colab</a>
+    <a aria-disabled="true" class="btn mt-2 btn-outline btn-sm" href="#url" role="button">{% octicon logo-gist %}Lihat
+        Github
+        Gist</a>
+    <a aria-disabled="true" class="btn mt-2 btn-outline btn-sm" href="#url" role="button">{% octicon eye %}
+        Lihat Melalui NBViewer</a>
+</div>
+{% endif %}
