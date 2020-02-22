@@ -12,7 +12,7 @@ Halaman ini saya gunakan untuk merekam jejak bacaan yang kemungkinan saya jadika
 
 -----
 
-## Informasi Halaman
+## Informasi Tulisan
 {: .no_toc}
 
 Jenis Tulisan | Koleksi, Catatan Pribadi

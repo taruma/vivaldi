@@ -10,7 +10,7 @@ Halaman ini berisikan daftar kelas/kursus yang saya telah tempuh dan yang sedang
 
 -----
 
-## Informasi Halaman
+## Informasi Tulisan
 {: .no_toc}
 
 Jenis Halaman | Koleksi, Catatan Pribadi
