@@ -29,25 +29,16 @@ Unduh | [CSV](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_pape
 
 -----
 
-## Sudah dibaca
+{% include daftar_makalah.html legend="yes" %}
 
-Berikut daftar makalah yang telah saya baca (bukan berarti memahami sepenuhnya). 😁. 
+-----
 
-print code | Tahun | Judul | Penulis | Publikasi
-:-: | :-: | - | - | :-:
-{%- assign collection = site.data.list_paper | sort: 'year' | reverse -%}
-{%- assign read_collection = collection | where: "read", "yes" -%}
-{%- for item in read_collection -%}
-{% if item %}
-<small>{{ item.code }}{%- if item.read == "yes" -%}<br>({%- octicon check -%},{{ item.readdate }}){%- endif -%}{%- if item.note == "yes" -%}<br>[{%- octicon book -%}]{%- endif -%}</small>|{{ item.year }}|__{{ item.title }}__{%- if item.doi -%}<br>([doi]({{ item.doi }})){%- endif -%}|{{ item.author }}|_{{ item.publisher }}_|
-{%- endif -%}
-{% endfor %}
 
-Catatan:
+## Makalah yang sudah dibaca
 
-* Yang ditandai ({%- octicon check -%}, tanggal selesai dibaca (`yyyymmdd`)) berarti sudah pernah dibaca.
-* Yang ditandai [{%- octicon book -%}] berarti sudah dibuat ringkasannya.
-* _Print code_ merupakan kode pribadi yang digunakan untuk menandai makalah yang telah saya cetak.
+Berikut daftar makalah yang telah saya baca. 
+
+{% include daftar_makalah.html %}
 
 -----
 
@@ -55,14 +46,4 @@ Catatan:
 
 Berikut daftar makalah yang saya kumpulkan untuk dibaca. 😁. 
 
-print code | Tahun | Judul | Penulis | Publikasi
-:-: | :-: | - | - | :-:
-{%- assign unread_collection = '' | split: '' -%}
-{%- for item in collection -%}
-{%- if item.read == nil -%}
-{% if item %}
-<small>{{ item.code }}{%- if item.read == "yes" -%}<br>({%- octicon check -%},{{ item.readdate }}){%- endif -%}{%- if item.note == "yes" -%}<br>[{%- octicon book -%}]{%- endif -%}</small>|{{ item.year }}|__{{ item.title }}__{%- if item.doi -%}<br>([doi]({{ item.doi }})){%- endif -%}|{{ item.author }}|_{{ item.publisher }}_|
-{%- endif -%}
-{%- endif -%}
-{%- endfor -%}
-{{ unread_collection }}
+{% include daftar_makalah.html read="no"%}

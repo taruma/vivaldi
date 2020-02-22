@@ -1,0 +1,40 @@
+{% assign collection = site.data.list_book %}
+
+{% assign use = include.use | default: "yes" %}
+
+{% assign new_collection = collection | where: "use", use | sort: "year" | reverse %}
+
+{% assign legend = include.legend | default: "no" %}
+
+{% if legend == "no" %}
+<div class="border d-flex flex-column my-3 border-red">
+    {% for item in new_collection %}
+    <div class="p-2 pl-3 border bg-gray-light">
+        <span class="f3 text-bold text-italic">{{ item.title }}</span><br>
+        <span class="Label bg-yellow text-gray-dark" title="Label: {{ item.year }}">{{ item.year | date: "%Y"}}</span>
+        <span class="Label bg-blue" title="Label: {{ item.publisher }}">{{ item.publisher }}</span>
+        <span class="Label Label--gray" title="Label: {{ item.date_add }}">{{ item.date_add | date: "%d %b %Y"}}</span>
+        {% if item.isbn %}
+        <span class="Label Label--gray" title="Label: {{ item.isbn }}">{{ item.isbn }}</span>
+        {% endif %}<br>
+        <span class="text-italic">{{ item.author }}</span><br>
+        {% if item.note %}
+        <span class="text-small">
+            <b>Catatan:</b>
+            {{ item.note }}</span><br>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if legend == "yes" %}
+<div class="p-3 border border-dashed border-black-fade bg-gray-light my-2">
+    <span class="f3 text-bold text-italic">Judul Buku</span><br>
+    <span class="Label bg-yellow text-gray-dark text-small" title="Label: Tahun Terbit">Tahun Terbit</span>
+    <span class="Label bg-blue" title="Label: Penerbit">Penerbit</span>
+    <span class="Label Label--gray" title="Label: Tanggal Disimpan">Tanggal Disimpan</span>
+    <span class="Label Label--gray" title="Label: Kode ISBN">Kode ISBN</span><br>
+    <span class="text-italic">Penulis</span><br>
+</div>
+{% endif %}

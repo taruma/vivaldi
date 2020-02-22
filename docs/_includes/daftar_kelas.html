@@ -1,36 +1,86 @@
 {% assign collection = site.data.list_course %}
 
 {% assign status = include.status | default: "done" %}
+{% assign legend = include.legend | default: "no" %}
 
 {% assign new_collection = collection | where: "status", status | sort: "year" | reverse %}
 
-<div class="Box my-2 border-blue">
-    {%- for item in new_collection -%}
-        <div class="Box-row d-flex flex-items-center">
-            <h4>
-                <b>{{ item.course }}</b>
-                {% if item.year %}
-                    <span class="Label bg-yellow text-gray-dark text-small" title="Label: {{ item.year }}">{{ item.year | date: "%b %Y"}}</span>
-                {% endif %}<br>
-                <span class="Label bg-blue" title="Label: {{ item.mooc }}">{{ item.mooc }}</span>
+{% if legend == "no" %}
+<div class="border d-flex flex-column my-3 border-blue">
+    {% for item in new_collection %}
+    <div class="p-2 pl-3 border">
+        <!-- TITLE -->
+        <span class="f3 text-bold text-italic">{{ item.course }}</span>
+        {% if item.year %}<span class="Label bg-yellow text-gray-dark text-small"
+            title="Label: {{ item.year }}">{{ item.year | date: "%b %Y"}}</span>
+        {% endif %}
+        <br>
 
-                {% if item.author %}
-                    <span class="Label bg-green" title="Label: {{ item.author }}">{{ item.author }}</span>
-                {% endif %}
-                {% if item.level %}
-                    <span class="Label Label--gray" title="Label: {{ item.level }}">{{ item.level }}</span>
-                {% endif %}<br>
-                <span class="text-italic h6">{{ item.instructor }}</span><br>
-                {% if item.course_url %}
-                    <a role="button" class="btn btn-outline btn-sm" href="{{ item.course_url }}">Lihat Kelas</a>
-                {% endif %}
-                {% if item.grade %}
-                    <span class="State text-small">{{ item.grade }}</span>
-                {% endif %}
-                {% if item.certificate %}
-                    <a class="btn btn-primary btn-sm" href="{{ item.certificate }}">Sertifikat</a>
-                {% endif %}
-            </h4>
-        </div>
-    {%- endfor -%}
+        <!-- LABEL -->
+        <span class="Label bg-blue" title="Label: {{ item.mooc }}">{{ item.mooc }}</span>
+        {% if item.author %}
+        <span class="Label bg-green" title="Label: {{ item.author }}">{{ item.author }}</span>
+        {% endif %}
+        {% if item.level %}
+        <span class="Label Label--gray" title="Label: {{ item.level }}">{{ item.level }}</span>
+        {% endif %}<br>
+        <span class="f4-light text-italic">{{ item.instructor }}</span><br>
+
+        <!-- BUTTON -->
+        {% if item.course_url %}
+        <a role="button" class="btn btn-outline btn-sm my-1" href="{{ item.course_url }}">Lihat Kelas</a>
+        {% endif %}
+        {% if item.grade %}
+        <span class="State text-small my-1">{{ item.grade }}</span>
+        {% endif %}
+        {% if item.certificate %}
+        <a class="btn btn-primary btn-sm my-1" href="{{ item.certificate }}">Sertifikat</a>
+        {% endif %}
+    </div>
+    {% endfor %}
 </div>
+{% endif %}
+
+{% if legend == "yes" %}
+<div class="Box border border-dashed border-black-fade bg-gray-light my-2">
+    <div class="p-2 pl-3 border">
+        <!-- TITLE -->
+        <span class="f3 text-bold text-italic">Name Kelas</span>
+        <span class="Label bg-yellow text-gray-dark text-small" title="Label: Tanggal Selesai">Tanggal Selesai</span>
+        <br>
+
+        <!-- LABEL -->
+        <span class="Label bg-blue" title="Label: Layanan/MOOC">Layanan/MOOC</span>
+        <span class="Label bg-green" title="Label: Institusi/Penyedia">Institusi/Penyedia</span>
+        <span class="Label Label--gray" title="Label: Tingkat Kesulitan">Tingkat Kesulitan</span>
+        <br>
+        <span class="f4-light text-italic">Pengajar</span><br>
+
+        <!-- BUTTON -->
+        <button aria-disabled="true" class="btn btn-outline btn-sm my-1" type="button">Pranala Kelas</button>
+        <button aria-disabled="true" class="btn btn-primary btn-sm my-1" type="button">Sertifikat</button>
+        <span class="State text-small my-1">Nilai</span>
+    </div>
+</div>
+{% endif %}
+
+<!-- {% if legend == "yes" %}
+<div class="Box border border-dashed border-black-fade bg-gray-light my-2">
+    <div class="Box-row d-flex flex-items-center">
+        <h4>
+            <b>Nama Kelas</b>
+            <span class="Label bg-yellow text-gray-dark text-small" title="Label: Tanggal Selesai">Tanggal
+                Selesai</span>
+            <br>
+            <span class="Label bg-blue" title="Label: Layanan/MOOC">Layanan/MOOC</span>
+            <span class="Label bg-green" title="Label: Institusi/Penyedia">Institusi/Penyedia</span>
+            <span class="Label Label--gray" title="Label: Tingkat Kesulitan">Tingkat Kesulitan</span>
+            <br>
+            <span class="text-italic h6">Pengajar</span><br>
+            <button aria-disabled="true" class="btn btn-outline btn-sm" type="button">Pranala Kelas</button>
+            <button aria-disabled="true" class="btn btn-primary btn-sm" type="button">Sertifikat</button>
+            <span class="State text-small">Nilai</span>
+        </h4>
+    </div>
+</div>
+{% endif %} -->

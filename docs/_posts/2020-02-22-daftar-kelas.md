@@ -25,6 +25,10 @@ Unduh | [CSV](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_cour
 
 -----
 
+{% include daftar_kelas.html legend="yes" %}
+
+-----
+
 ## Kelas yang sedang diambil
 
 Berikut daftar kelas yang sedang diambil. 
@@ -35,11 +39,12 @@ Berikut daftar kelas yang sedang diambil.
 
 ## Kelas yang selesai
 
-Berikut daftar kelas yang pernah saya ambil dan selesaikan. Setiap kelas tersedia sertifikat (atau nilai jika tidak tersedia). Kelas diurutkan dari yang terakhir diselesaikan (yang paling atas, yang baru saja selesai). 
+Berikut daftar kelas yang pernah saya ambil dan selesaikan. 
 
 {% include daftar_kelas.html %}
 
 -----
+
 
 
 ## Kelas yang akan diambil

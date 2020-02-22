@@ -1,0 +1,52 @@
+{% assign collection = site.data.list_paper %}
+
+{% assign read = include.read | default: "yes" %}
+{% assign legend = include.legend | default: "no" %}
+
+{% assign new_collection = collection | where: "read", read | sort: "readdate" | sort: "year" | reverse %}
+
+{% if legend == "no" %}
+<div class="border d-flex flex-column my-3 border-green">
+    {% for item in new_collection %}
+    <div class="p-2 pl-3 border">
+        <span class="f3 text-bold">{{ item.title }}</span>
+        <br>
+
+        <!-- LABEL -->
+        <span title="Label: {{ item.year }}" class="Label bg-yellow text-gray-dark">{{ item.year }}</span>
+        <span title="Label: {{ item.publisher }}" class="Label bg-blue">{{ item.publisher }}</span>
+        {% if item.doi %}
+        <span title="Label: DOI" class="Label Label--gray"><a href="{{ item.doi }}">DOI</a></span>
+        {% endif %}
+        <span title="Label: {{ item.code }}" class="Label Label--outline text-mono">{{ item.code }}</span>
+        {% if item.readdate %}
+        <span title="Label: {{ item.readdate }}"
+            class="Label Label--outline Label--outline-green">{{ item.readdate | date: "%d %b %Y" }}</span>
+        {% endif %}
+        <br>
+        <!-- TEXT -->
+        <span class="text-italic">{{ item.author }}</span><br>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+{% if legend == "yes" %}
+<div class="p-3 border border-dashed border-black-fade bg-gray-light my-2">
+    <!-- JUDUL MAKALAH -->
+    <span class="f3 text-bold">Judul Makalah</span>
+    <br>
+
+    <!-- LABEL -->
+    <span title="Label: Tahun Publikasi" class="Label bg-yellow text-gray-dark">Tahun Publikasi</span>
+    <span title="Label: Publikasi" class="Label bg-blue">Publikasi/Jurnal</span>
+    <span title="Label: DOI" class="Label Label--gray">Pranala DOI</span>
+    <span title="Label: Print Code" class="Label Label--outline text-mono">Print Code</span>
+    <span title="Label: Tanggal Selesai" class="Label Label--outline Label--outline-green">Tanggal Selesai
+        Dibaca</span>
+
+    <br>
+    <!-- TEXT -->
+    <span class="text-italic">Penulis</span><br>
+</div>
+{% endif %}
