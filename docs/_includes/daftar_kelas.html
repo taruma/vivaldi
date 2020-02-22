@@ -4,12 +4,16 @@
 
 {% assign new_collection = collection | where: "status", status | sort: "year" | reverse %}
 
-<div class="Box my-2">
+<div class="Box my-2 border-blue">
     {%- for item in new_collection -%}
         <div class="Box-row d-flex flex-items-center">
             <h4>
-                <b>{{ item.course }}</b><br>
+                <b>{{ item.course }}</b>
+                {% if item.year %}
+                    <span class="Label bg-yellow text-gray-dark text-small" title="Label: {{ item.year }}">{{ item.year | date: "%b %Y"}}</span>
+                {% endif %}<br>
                 <span class="Label bg-blue" title="Label: {{ item.mooc }}">{{ item.mooc }}</span>
+
                 {% if item.author %}
                     <span class="Label bg-green" title="Label: {{ item.author }}">{{ item.author }}</span>
                 {% endif %}
