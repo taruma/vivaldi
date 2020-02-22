@@ -1,0 +1,28 @@
+{% assign collection = site.data.list_paper %}
+
+{% assign new_collection = collection | where: "read", read | sort: "readdate" | reverse %}
+
+<details class="details-overlay my-2">
+    <summary class="btn">Berdasarkan Urutan Bacaan</summary>
+    <div class="ml-6 my-2">
+        {% for item in new_collection %}
+        <div class="TimelineItem">
+            <div class="TimelineItem-avatar ml-3">
+                {% if item.readdate %}
+                <center><span
+                        class="Label Label--outline-green text-small text-mono">{{ item.readdate | date: "%d<br>%b<br>%Y"}}</span>
+                </center>
+                {% endif %}
+            </div>
+
+            <div class=" TimelineItem-badge">
+                {% octicon book %}
+            </div>
+
+            <div class="TimelineItem-body">
+                <span class="f5-light text-italic">{{ item.title }} ({{ item.year }})</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</details>

@@ -33,10 +33,13 @@ Unduh | [CSV](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_pape
 
 -----
 
-
 ## Makalah yang sudah dibaca
 
-Berikut daftar makalah yang telah saya baca. 
+Berikut daftar makalah yang telah saya baca. Daftar diurutkan berdasarkan tahun publikasi.
+
+<p class="text-small text-italic"><b>Catatan</b>: Klik <span title="Label: DOI" class="Label Label--gray">DOI</span> untuk memperoleh akses makalah. </p>
+
+{% include timeline_makalah.html %}
 
 {% include daftar_makalah.html %}
 
@@ -47,3 +50,6 @@ Berikut daftar makalah yang telah saya baca.
 Berikut daftar makalah yang saya kumpulkan untuk dibaca. 😁. 
 
 {% include daftar_makalah.html read="no"%}
+
+-----
+
