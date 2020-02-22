@@ -1,0 +1,32 @@
+{% assign collection = site.data.list_course %}
+
+{% assign status = include.status | default: "done" %}
+
+{% assign new_collection = collection | where: "status", status | sort: "year" | reverse %}
+
+<div class="Box my-2">
+    {%- for item in new_collection -%}
+        <div class="Box-row d-flex flex-items-center">
+            <h4>
+                <b>{{ item.course }}</b><br>
+                <span class="Label bg-blue" title="Label: {{ item.mooc }}">{{ item.mooc }}</span>
+                {% if item.author %}
+                    <span class="Label bg-green" title="Label: {{ item.author }}">{{ item.author }}</span>
+                {% endif %}
+                {% if item.level %}
+                    <span class="Label Label--gray" title="Label: {{ item.level }}">{{ item.level }}</span>
+                {% endif %}<br>
+                <span class="text-italic h6">{{ item.instructor }}</span><br>
+                {% if item.course_url %}
+                    <a role="button" class="btn btn-outline btn-sm" href="{{ item.course_url }}">Lihat Kelas</a>
+                {% endif %}
+                {% if item.grade %}
+                    <span class="State text-small">{{ item.grade }}</span>
+                {% endif %}
+                {% if item.certificate %}
+                    <a class="btn btn-primary btn-sm" href="{{ item.certificate }}">Sertifikat</a>
+                {% endif %}
+            </h4>
+        </div>
+    {%- endfor -%}
+</div>

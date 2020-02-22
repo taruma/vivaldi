@@ -13,7 +13,7 @@ Halaman ini berisikan daftar buku yang saya kumpulkan dan gunakan.
 ## Informasi Halaman
 {: .no_toc}
 
-Jenis Halaman | Koleksi, Catatan Pribadi
+Jenis Tulisan | Koleksi, Catatan Pribadi
 Unduh | [CSV](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_book.csv), [Excel](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_book_excel.xlsx)
 
 -----

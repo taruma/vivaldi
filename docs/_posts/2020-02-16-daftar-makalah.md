@@ -15,7 +15,7 @@ Halaman ini saya gunakan untuk merekam jejak bacaan yang kemungkinan saya jadika
 ## Informasi Halaman
 {: .no_toc}
 
-Jenis Halaman | Catatan Pribadi
+Jenis Tulisan | Koleksi, Catatan Pribadi
 Unduh | [CSV](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_paper.csv), [Excel](https://github.com/taruma/vivaldi/blob/master/docs/_data/list_paper_excel.xlsx)
 
 -----
