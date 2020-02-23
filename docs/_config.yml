@@ -48,7 +48,15 @@ kramdown:
 # custom
 header_pages:
   - about.md
-  - pages/pranala.md
+  # - pages/pranala.md
 
-paginate: 7
-paginate_path: "/page/:num/"
+# paginate: 1
+# paginate_path: "/page/:num/"
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+      type: "posts" # previously `post` in Jekyll 2.2.
+    values:
+      hide: false 
