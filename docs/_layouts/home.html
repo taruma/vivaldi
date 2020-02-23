@@ -4,28 +4,52 @@ layout: default
 
 <div class="home">
     {%- if page.title -%}
-        <h1 class="page-heading">{{ page.title }}</h1>
+    <h1 class="page-heading">{{ page.title }}</h1>
     {%- endif -%}
 
     {{ content }}
 
     {% assign posts = site.posts %}
     {% if site.paginate %}
-        {% assign posts = paginator.posts %}
+    {% assign posts = paginator.posts %}
     {% endif %}
 
     <hr>
-    {%- if posts.size > 0 -%}
-        <center>
-            <div class="bg-gray-dark p-0">
-                <h2 class="f0-light text-white text-shadow-dark">
-                    <a id="daftar-tulisan"></a>
-                    {{ page.list_title | default: "Daftar Tulisan" }}</h>
-            </div>
-        </center>
-        <ul class="post-list">
-            {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+
+    <div class="d-flex flex-column mt-3">
+        <details>
+            <summary class="Header bg-gray-dark p-2 pl-3 mb-3 flex-justify-center"><span
+                    class="f3 text-bold text-white"><a
+                        id="daftar-tulisan"></a>{{ page.list_title | default: "Daftar Tulisan" }}</span></summary>
+            {%- if posts.size > 0 -%}
+            {%- assign date_format = site.minima.date_format | default: "%b %d, %Y" -%}
             {%- for post in posts -%}
+            {%- if post.hide != true -%}
+            <div class="p-2 pl-3 border">
+                <span class="Label bg-yellow text-gray-dark text-mono">{{ post.date | date: date_format }}</span>
+                <span class="h3 text-italic">
+                    <a href="{{ post.url | relative_url }}" target="_blank">{{ post.title | escape }}</a>
+
+                </span>
+            </div>
+            {%- endif -%}
+            {%- endfor -%}
+
+
+            <!-- PAGINATION -->
+            {% endif %}
+        </details>
+    </div>
+
+    <!-- <div class="d-flex flex-column my-3">
+        <details>
+            <summary class="Header bg-gray-dark p-2 pl-3 mb-3 flex-justify-center"><span
+                    class="f3 text-bold text-white"><a
+                        id="daftar-tulisan"></a>{{ page.list_title | default: "Daftar Tulisan" }}</span></summary>
+            {%- if posts.size > 0 -%}
+            <ul class="post-list">
+                {%- assign date_format = site.minima.date_format | default: "%b %-d, %Y" -%}
+                {%- for post in posts -%}
                 <li>
                     <span class="post-meta">{{ post.date | date: date_format }}</span>
                     <h3>
@@ -34,17 +58,18 @@ layout: default
                         </a>
                     </h3>
                     {%- if site.show_excerpts -%}
-                        {{ post.excerpt }}
+                    {{ post.excerpt }}
                     {%- endif -%}
                 </li>
-            {%- endfor -%}
-        </ul>
+                {%- endfor -%}
+            </ul>
 
-        {% if site.paginate %}
+            {% if site.paginate %}
 
             <div class="pagination">
                 {% if paginator.previous_page %}
-                    <a href="{{ paginator.previous_page_path | relative_url }}#daftar-tulisan" class="previous">&laquo; Previous</a>
+                <a href="{{ paginator.previous_page_path | relative_url }}#daftar-tulisan" class="previous">&laquo;
+                    Previous</a>
                 {% endif %}
 
                 <span class="page_number">Page:
@@ -53,10 +78,14 @@ layout: default
                     {{ paginator.total_pages }}</span>
 
                 {% if paginator.next_page %}
-                    <a href="{{ paginator.next_page_path | relative_url }}#daftar-tulisan" class="next">Next &raquo;</a>
+                <a href="{{ paginator.next_page_path | relative_url }}#daftar-tulisan" class="next">Next &raquo;</a>
                 {% endif %}
             </div>
-        {% endif %}
-    {% endif %}
+            {% endif %}
+            {% endif %}
+        </details>
+    </div> -->
+
+
 
 </div>
