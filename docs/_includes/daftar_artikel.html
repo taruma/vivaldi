@@ -1,0 +1,54 @@
+{% assign collection = site.data.list_article %}
+
+{% assign type = include.type | default: "all" %}
+{% assign sort_item = include.sort_item | default: "year" %}
+
+{% assign new_collection = collection | where: "type", type | where: "show", "yes" | sort: sort_item | reverse %}
+
+{% assign list_type = "" | split: "," %}
+{% for item in collection %}
+{% assign list_type = list_type | push: item.type %}
+{% endfor %}
+{% assign list_type = list_type | uniq %}
+
+{% if type == "all" %}
+{% for each_type in list_type %}
+{% assign each_collection = collection | where: "type", each_type | where: "show", "yes" %}
+<div class="border d-flex flex-column my-3 border-blue">
+    <details>
+        <summary class="Header bg-gray-dark p-2 pl-3 flex-justify-center"><span
+                class="f3 text-bold text-white">{{ each_type | upcase }}</span></summary>
+        {% assign counter = 1 %}
+        {% for item in each_collection %}
+        <div class="p-2 pl-3 border">
+            <span class="State State--red mx-2">{{ counter }}</span>
+            <span class="f4-light text-bold">{{ item.title }}</span>
+            <a href="{{ item.url }}" class="btn btn-outline btn-sm my-1" target="_blank">Lihat</a><br>
+            {% if item.note %}
+            <span class="text-small text-gray-light text-italic">{{ item.note }}</span>
+            {% endif %}
+        </div>
+        {% assign counter = counter | plus: 1 %}
+        {% endfor %}
+    </details>
+</div>
+{% endfor %}
+{% endif %}
+
+
+{% if type == "raindrop" %}
+<div class="border d-flex flex-column my-3 border-yellow">
+    {% assign counter = 1 %}
+    {% for item in new_collection %}
+    <div class="p-2 pl-3 border">
+        <span class="State State--red mx-2">{{ counter }}</span>
+        <span class="f4-light text-bold">{{ item.title }}</span>
+        <a href="{{ item.url }}" class="btn btn-outline btn-sm my-1" target="_blank">Lihat</a><br>
+        {% if item.note %}
+        <span class="text-small text-gray-light text-italic">{{ item.note }}</span>
+        {% endif %}
+    </div>
+    {% assign counter = counter | plus: 1 %}
+    {% endfor %}
+</div>
+{% endif %}
