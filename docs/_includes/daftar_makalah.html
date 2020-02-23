@@ -16,7 +16,7 @@
         <span title="Label: {{ item.year }}" class="Label bg-yellow text-gray-dark">{{ item.year }}</span>
         <span title="Label: {{ item.publisher }}" class="Label bg-blue">{{ item.publisher }}</span>
         {% if item.doi %}
-        <span title="Label: DOI" class="Label Label--gray"><a href="{{ item.doi }}">DOI</a></span>
+        <span title="Label: DOI" class="Label Label--gray"><a href="{{ item.doi }}" target="_blank">DOI</a></span>
         {% endif %}
         <span title="Label: {{ item.code }}" class="Label Label--outline text-mono">{{ item.code }}</span>
         {% if item.readdate %}

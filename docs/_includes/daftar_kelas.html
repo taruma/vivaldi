@@ -28,13 +28,14 @@
 
         <!-- BUTTON -->
         {% if item.course_url %}
-        <a role="button" class="btn btn-outline btn-sm my-1" href="{{ item.course_url }}">Lihat Kelas</a>
+        <a role="button" class="btn btn-outline btn-sm my-1" href="{{ item.course_url }}" target="_blank">Lihat
+            Kelas</a>
         {% endif %}
         {% if item.grade %}
         <span class="State text-small my-1">{{ item.grade }}</span>
         {% endif %}
         {% if item.certificate %}
-        <a class="btn btn-primary btn-sm my-1" href="{{ item.certificate }}">Sertifikat</a>
+        <a class="btn btn-primary btn-sm my-1" href="{{ item.certificate }}" target="_blank">Sertifikat</a>
         {% endif %}
     </div>
     {% endfor %}

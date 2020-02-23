@@ -20,7 +20,10 @@
         <!-- LABEL -->
         <span title="Label: Tanggal Publikasi {{ item.li }}"
             class="Label bg-yellow text-gray-dark">{{ item.publish_date | date: "%d %b %Y"}}</span>
-        <span title="Label: Lisensi {{ item.li }}" class="Label bg-blue">{{ item.license }}</span>
+        {% assign arr_license = item.license | split: ", " %}
+        {% for li in arr_license %}
+        <span title="Label: Lisensi {{ item.li }}" class="Label bg-blue">{{ li }}</span>
+        {% endfor %}
         <span title="Label: Versi Hidrokit" class="Label Label--outline text-mono">hidrokit {{ item.hidrokit }}</span>
 
         <br>
@@ -30,20 +33,24 @@
         <br>
         <!-- BUTTON -->
         {% if item.permalink %}
-        <a class="btn mt-2 btn-danger btn-sm" href="{{ site.baseurl }}/{{ item.permalink }}"
-            role="button">{% octicon comment %}</a>
+        <a class="btn mt-2 btn-danger btn-sm" href="{{ site.baseurl }}/{{ item.permalink }}" role="button"
+            target="_blank">{% octicon comment %}</a>
         {% endif %}
         {% if item.pdf %}
-        <a class="btn mt-2 btn-primary btn-sm" href="{{ item.pdf }}" role="button">{% octicon desktop-download %}</a>
+        <a class="btn mt-2 btn-primary btn-sm" href="{{ item.pdf }}" role="button"
+            target="_blank">{% octicon desktop-download %}</a>
         {% endif %}
         {% if item.gcolab %}
-        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gcolab }}" role="button">{% octicon github-action %}</a>
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gcolab }}" role="button"
+            target="_blank">{% octicon github-action %}</a>
         {% endif %}
         {% if item.gist %}
-        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gist }}" role="button">{% octicon logo-gist %}</a>
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gist }}" role="button"
+            target="_blank">{% octicon logo-gist %}</a>
         {% endif %}
         {% if item.nbviewer %}
-        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.nbviewer }}" role="button">{% octicon eye %}</a>
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.nbviewer }}" role="button"
+            target="_blank">{% octicon eye %}</a>
         {% endif %}
     </div>
     {% endfor %}
