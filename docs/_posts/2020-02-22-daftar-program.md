@@ -1,5 +1,6 @@
 ---
 permalink: /daftar-program
+hide: true
 ---
 
 # Daftar Program

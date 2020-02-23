@@ -1,5 +1,6 @@
 ---
 permalink: /daftar-kelas
+hide: true
 ---
 
 # Daftar Kelas

@@ -1,5 +1,6 @@
 ---
 permalink: /daftar-buku
+hide: true
 ---
 
 # Daftar Buku

@@ -1,5 +1,6 @@
 ---
 permalink: /daftar-artikel
+hide: true
 ---
 
 # Daftar Artikel

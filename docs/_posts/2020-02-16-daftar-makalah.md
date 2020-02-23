@@ -1,5 +1,6 @@
 ---
 permalink: /daftar-makalah
+hide: true
 ---
 
 # Daftar Makalah
