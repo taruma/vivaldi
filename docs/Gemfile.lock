@@ -256,6 +256,7 @@ DEPENDENCIES
   jekyll-github-metadata
   jekyll-octicons
   minima (~> 2.5)
+  nokogiri (>= 1.10.8)
   tzinfo (~> 1.2)
   tzinfo-data
   wdm (~> 0.1.1)
