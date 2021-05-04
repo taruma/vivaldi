@@ -11,15 +11,15 @@
         <!-- JUDUL LAPORAN -->
         <span title="Label: NO {{ item.li }}" class="State bg-red text-white text-mono text-small">#{{ item.li }}</span>
         <span class="f3 text-bold">{{ item.title }}</span>
-        <span title="Label: Versi {{ item.li }}"
-            class="Label Label--outline-green text-mono text-small">{{ item.version }}</span>
+        <span title="Label: Versi {{ item.li }}" class="Label Label--outline-green text-mono text-small">{{ item.version
+            }}</span>
         <br>
         <span class="f5 text-bold text-italic">{{ item.other_title }}</span>
         <br>
 
         <!-- LABEL -->
-        <span title="Label: Tanggal Publikasi {{ item.li }}"
-            class="Label bg-yellow text-gray-dark">{{ item.publish_date | date: "%d %b %Y"}}</span>
+        <span title="Label: Tanggal Publikasi {{ item.li }}" class="Label bg-yellow text-gray-dark">{{ item.publish_date
+            | date: "%d %b %Y"}}</span>
         {% assign arr_license = item.license | split: ", " %}
         {% for li in arr_license %}
         <span title="Label: Lisensi {{ item.li }}" class="Label bg-blue">{{ li }}</span>
@@ -37,20 +37,20 @@
             target="_blank">{% octicon comment %}</a>
         {% endif %}
         {% if item.pdf %}
-        <a class="btn mt-2 btn-primary btn-sm" href="{{ item.pdf }}" role="button"
-            target="_blank">{% octicon desktop-download %}</a>
+        <a class="btn mt-2 btn-primary btn-sm" href="{{ item.pdf }}" role="button" target="_blank">{% octicon
+            desktop-download %}</a>
         {% endif %}
         {% if item.gcolab %}
-        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gcolab }}" role="button"
-            target="_blank">{% octicon github-action %}</a>
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gcolab }}" role="button" target="_blank">{% octicon
+            mark-github %}</a>
         {% endif %}
         {% if item.gist %}
-        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gist }}" role="button"
-            target="_blank">{% octicon logo-gist %}</a>
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.gist }}" role="button" target="_blank">{% octicon logo-gist
+            %}</a>
         {% endif %}
         {% if item.nbviewer %}
-        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.nbviewer }}" role="button"
-            target="_blank">{% octicon eye %}</a>
+        <a class="btn mt-2 btn-outline btn-sm" href="{{ item.nbviewer }}" role="button" target="_blank">{% octicon eye
+            %}</a>
         {% endif %}
     </div>
     {% endfor %}
@@ -83,7 +83,7 @@
         Blogpost</a>
     <a aria-disabled="true" class="btn mt-2 btn-primary btn-sm" href="#url" role="button">{% octicon desktop-download %}
         Unduh PDF</a>
-    <a aria-disabled="true" class="btn mt-2 btn-outline btn-sm" href="#url" role="button">{% octicon github-action %}
+    <a aria-disabled="true" class="btn mt-2 btn-outline btn-sm" href="#url" role="button">{% octicon mark-github %}
         Buka Menggunakan Google Colab</a>
     <a aria-disabled="true" class="btn mt-2 btn-outline btn-sm" href="#url" role="button">{% octicon logo-gist %}Lihat
         Github
